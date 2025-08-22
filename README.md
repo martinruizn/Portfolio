@@ -1,43 +1,48 @@
-# Astro Starter Kit: Minimal
+# Portafolio — Martin Ruiz
 
-```sh
-npm create astro@latest -- --template minimal
+Portafolio estático construido con Astro + Tailwind + MD/MDX + islas React opcionales, SEO sólido (JSON-LD + OG/Twitter), RSS y sitemap listos para deploy.
+
+## Requisitos
+
+- Node 18+
+- npm o bun
+
+## Scripts
+
+```bash
+npm i && npm run dev
+npm run build && npm run preview
+# o
+bun install && bun run dev
+bun run build && bun run preview
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Notas de imagen (sharp vs squoosh)
 
-## 🚀 Project Structure
+Se usa `sharp` por defecto. Si Bun falla con `sharp`, puedes cambiar el servicio de imágenes:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```js
+// astro.config.mjs (alternativa)
+export default defineConfig({
+  image: { service: { entrypoint: 'astro/assets/services/squoosh' } },
+});
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Estructura
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- `src/layouts/BaseLayout.astro` — Metadatos, JSON-LD, OG/Twitter.
+- `src/components/Nav.astro`, `ProjectCard.astro`
+- `src/content/config.ts` + `src/content/projects/*`
+- `src/pages/*` — Home, About, Contact, Projects list/detail, RSS (`/rss.xml`).
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Configuración Tailwind
 
-## 🧞 Commands
+- `tailwind.config.cjs` con `theme.extend.colors.brand = '#a15929'`.
+- `src/styles/global.css` incluye Inter Variable, tema oscuro, utilidades `.container`, `.card`, `.btn`.
 
-All commands are run from the root of the project, from a terminal:
+## Deploy (Vercel)
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Build command: `astro build`
+- Output dir: `dist`
+- Apuntar DNS del dominio `https://martin.dev`
+- Verificar: `/sitemap-index.xml`, `/robots.txt`, `/rss.xml`

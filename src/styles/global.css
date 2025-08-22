@@ -1,0 +1,57 @@
+@import '@fontsource-variable/inter';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html {
+  font-family:
+    'Inter Variable',
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+
+body {
+  @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-900;
+}
+
+/* Containers */
+.container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Cards */
+.card {
+  @apply rounded-xl border border-neutral-200/60 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900;
+}
+
+/* Buttons */
+.btn {
+  @apply inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 font-semibold text-white shadow-sm transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.btn-outline {
+  @apply inline-flex items-center gap-2 rounded-lg border border-brand px-4 py-2 font-semibold text-brand transition hover:bg-brand/10 focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+/* Prose defaults */
+.prose {
+  @apply prose-neutral dark:prose-invert max-w-none;
+}

@@ -1,0 +1,71 @@
+---
+import Nav from '../components/Nav.astro';
+import '../styles/global.css';
+
+const {
+  title = 'Martin Ruiz — Portafolio',
+  description = 'Portafolio de Martin Ruiz',
+  og = {
+    title,
+    description,
+    type: 'website',
+    url: 'https://martin.dev',
+    image: `${Astro.site?.origin ?? 'https://martin.dev'}/og-default.jpg`,
+  },
+} = Astro.props as {
+  title?: string;
+  description?: string;
+  og?: {
+    title: string;
+    description: string;
+    type: string;
+    url: string;
+    image: string;
+  };
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Martin Ruiz',
+  url: 'https://martin.dev',
+  sameAs: ['https://www.linkedin.com/in/martin-ruizn/'],
+};
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={og.title} />
+    <meta property="og:description" content={og.description} />
+    <meta property="og:type" content={og.type} />
+    <meta property="og:url" content={og.url} />
+    <meta property="og:image" content={og.image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={og.title} />
+    <meta name="twitter:description" content={og.description} />
+    <meta name="twitter:image" content={og.image} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    {
+      /* Ejemplo de override por página:
+    <BaseLayout og={{ ...og, title: 'Página X', url: 'https://martin.dev/x' }}>
+      ...
+    </BaseLayout>
+    */
+    }
+  </head>
+  <body>
+    <Nav />
+    <main class="container py-10">
+      <slot />
+    </main>
+  </body>
+</html>
