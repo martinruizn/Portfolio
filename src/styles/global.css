@@ -55,3 +55,38 @@ body {
 .prose {
   @apply prose-neutral dark:prose-invert max-w-none;
 }
+
+/* Subtle 3D tilt animation for avatar */
+.tilt-perspective {
+  perspective: 900px;
+}
+
+@keyframes tilt-y {
+  0% {
+    transform: rotateY(-8deg);
+  }
+  50% {
+    transform: rotateY(8deg);
+  }
+  100% {
+    transform: rotateY(-8deg);
+  }
+}
+
+.tilt-loop {
+  transform-style: preserve-3d;
+  transform-origin: center;
+  backface-visibility: hidden;
+  animation: none;
+  will-change: transform;
+}
+
+.tilt-hover:hover .tilt-loop {
+  animation: tilt-y 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-loop {
+    animation: none;
+  }
+}

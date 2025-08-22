@@ -1,9 +1,72 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects')).slice(0, 4);
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+async function getRepoMeta(repoUrl: string): Promise<{ avatar?: string; stars?: number; name?: string; description?: string }> {
+  try {
+    const url = new URL(repoUrl);
+    if (url.hostname !== 'github.com') return {};
+    const segments = url.pathname.split('/').filter(Boolean);
+    const owner = segments[0];
+    const repo = (segments[1] || '').replace(/\.git$/, '');
+    if (!owner || !repo) return {};
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
+    const res = await fetch(apiUrl, {
+      headers: {
+        'User-Agent': 'astro-portfolio',
+        ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
+        Accept: 'application/vnd.github+json',
+      },
+    });
+    if (!res.ok) return {};
+    const data = await res.json();
+    return { avatar: data?.owner?.avatar_url, stars: data?.stargazers_count, name: data?.name, description: data?.description };
+  } catch {
+    return {};
+  }
+}
+
+const curatedRepos = [
+  'https://github.com/martinruizn/sfb1.git',
+  'https://github.com/martinruizn/ClasesKruger.git',
+  'https://github.com/martinruizn/Portfolio.git',
+  'https://github.com/martinruizn/frontend-vercel-mr.git',
+];
+
+const curated = await Promise.all(
+  curatedRepos.map(async (href) => {
+    const meta = await getRepoMeta(href);
+    const url = new URL(href);
+    const segments = url.pathname.split('/').filter(Boolean);
+    const repoName = (segments[1] || '').replace(/\.git$/, '');
+    return {
+      title: meta.name ?? repoName,
+      teaser: meta.description ?? 'Repositorio en GitHub',
+      year: undefined,
+      tags: ['github'],
+      href,
+      avatar: meta.avatar,
+      stars: meta.stars,
+    };
+  })
+);
+
+const padded = [
+  ...curated,
+  ...Array(Math.max(0, 4 - curated.length))
+    .fill(null)
+    .map(() => ({
+      title: 'Proyecto en GitHub',
+      teaser: 'Visita mis repositorios para ver más trabajos.',
+      year: undefined,
+      tags: ['github'],
+      href: 'https://github.com/martinruizn?tab=repositories',
+      avatar: undefined,
+      stars: undefined,
+    })),
+].slice(0, 4);
 ---
 
 <BaseLayout
@@ -12,6 +75,17 @@ const projects = (await getCollection('projects')).slice(0, 4);
 >
   <section class="py-16">
     <div class="text-center">
+      <div class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-950 shadow-[0_16px_24px_-8px_rgba(0,0,0,0.45)] tilt-perspective tilt-hover">
+        <img
+          src="/avatar.jpg"
+          alt="Foto de Martin Ruiz"
+          width="112"
+          height="112"
+          class="h-full w-full object-cover tilt-loop"
+          onerror="this.onerror=null;this.src='/avatar-placeholder.svg'"
+          loading="eager"
+        />
+      </div>
       <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
         Martin Ruiz
       </h1>
@@ -29,17 +103,33 @@ const projects = (await getCollection('projects')).slice(0, 4);
   <section class="mt-12">
     <h2 class="mb-6 text-xl font-bold">Proyectos recientes</h2>
     <div class="grid gap-4 sm:grid-cols-2">
-      {
-        projects.map((p) => (
-          <ProjectCard
-            title={p.data.title}
-            teaser={p.data.teaser}
-            year={p.data.year}
-            tags={p.data.tags}
-            href={`/projects/${p.slug}`}
-          />
-        ))
-      }
+      {padded.map((p) => (
+        <ProjectCard
+          title={p.title}
+          teaser={p.teaser}
+          year={p.year}
+          tags={p.tags}
+          href={p.href}
+          avatar={p.avatar}
+          stars={p.stars}
+        />
+      ))}
+    </div>
+  </section>
+  <section class="mt-16">
+    <div class="card p-8">
+      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <div>
+          <h2 class="text-xl font-bold">¿Hablamos?</h2>
+          <p class="mt-1 text-neutral-600 dark:text-neutral-300">
+            ¿Tienes una idea, proyecto o propuesta? Me encanta construir productos bien hechos.
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <a class="btn" href="mailto:hola@martin.dev">Escríbeme</a>
+          <a class="btn-outline" href="https://www.linkedin.com/in/martin-ruizn/">Conectemos en LinkedIn</a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>
