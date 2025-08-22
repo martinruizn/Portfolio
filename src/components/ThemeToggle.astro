@@ -1,0 +1,38 @@
+---
+const label = 'Toggle theme';
+---
+
+<button data-theme-toggle class="btn" aria-label={label}>☀️</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector('[data-theme-toggle]');
+
+  function updateIcon() {
+    if (!btn) return;
+    btn.textContent = root.classList.contains('dark') ? '🌙' : '☀️';
+  }
+
+  function applyTheme(next) {
+    root.classList.toggle('dark', next === 'dark');
+    try { localStorage.setItem('theme', next); } catch {}
+    updateIcon();
+  }
+
+  // Initialize from storage if present
+  try {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'dark' || stored === 'light') {
+      root.classList.toggle('dark', stored === 'dark');
+    }
+  } catch {}
+  updateIcon();
+
+  // Click handler
+  btn?.addEventListener('click', () => {
+    const next = root.classList.contains('dark') ? 'light' : 'dark';
+    applyTheme(next);
+  });
+</script>
+
+

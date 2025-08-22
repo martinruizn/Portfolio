@@ -1,17 +1,19 @@
 ---
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Projects' },
   { href: '/blog', label: 'Blog' },
 ];
-import ThemeToggle from './ThemeToggle.tsx';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <nav
   class="border-b border-neutral-200/60 bg-white/70 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/70"
 >
   <div class="container flex h-14 items-center justify-between">
-    <a href="/" class="font-bold">Martin Ruiz</a>
+    <a href="/" class="inline-flex items-center gap-2" aria-label="Inicio">
+      <img src="/logo.png" alt="Martin Ruiz" width="120" height="24" class="h-12 w-auto block dark:hidden" />
+      <img src="/logo-dark.png" alt="Martin Ruiz" width="120" height="24" class="h-12 w-auto hidden dark:block" />
+    </a>
     <div class="flex items-center gap-4">
       <ul class="flex items-center gap-6 text-sm">
         {
@@ -24,7 +26,7 @@ import ThemeToggle from './ThemeToggle.tsx';
           ))
         }
       </ul>
-      <ThemeToggle client:idle />
+      <ThemeToggle />
     </div>
   </div>
 </nav>

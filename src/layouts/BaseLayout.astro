@@ -9,8 +9,8 @@ const {
     title,
     description,
     type: 'website',
-    url: 'https://martin.dev',
-    image: `${Astro.site?.origin ?? 'https://martin.dev'}/og-default.jpg`,
+    url: 'https://martinruiz.dev',
+    image: `${Astro.site?.origin ?? 'https://martinruiz.dev'}/og-default.jpg`,
   },
 } = Astro.props as {
   title?: string;
@@ -28,7 +28,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Martin Ruiz',
-  url: 'https://martin.dev',
+  url: 'https://martinruiz.dev',
   sameAs: ['https://www.linkedin.com/in/martin-ruizn/'],
 };
 ---
@@ -56,7 +56,7 @@ const jsonLd = {
 
     {
       /* Ejemplo de override por página:
-    <BaseLayout og={{ ...og, title: 'Página X', url: 'https://martin.dev/x' }}>
+    <BaseLayout og={{ ...og, title: 'Página X', url: 'https://martinruiz.dev/x' }}>
       ...
     </BaseLayout>
     */

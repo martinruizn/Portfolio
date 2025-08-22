@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://martin.dev/sitemap-index.xml
+Sitemap: https://martinruiz.dev/sitemap-index.xml
 
 

@@ -75,13 +75,13 @@ const padded = [
 >
   <section class="py-16">
     <div class="text-center">
-      <div class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-950 shadow-[0_16px_24px_-8px_rgba(0,0,0,0.45)] tilt-perspective tilt-hover">
+      <div class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-950 shadow-[0_16px_24px_-8px_rgba(0,0,0,0.45)]">
         <img
           src="/avatar.jpg"
           alt="Foto de Martin Ruiz"
           width="112"
           height="112"
-          class="h-full w-full object-cover tilt-loop"
+          class="h-full w-full object-cover"
           onerror="this.onerror=null;this.src='/avatar-placeholder.svg'"
           loading="eager"
         />
@@ -90,17 +90,25 @@ const padded = [
         Martin Ruiz
       </h1>
       <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
-       Un crack total!!
+        Desarrollador Fullstack
       </p>
       <div class="mt-8 flex items-center justify-center gap-3">
-        <a href="/projects" class="btn">Ver proyectos</a>
-        <a href="https://www.linkedin.com/in/martin-ruizn/" class="btn-outline"
-          >LinkedIn</a
-        >
+        <a href="https://github.com/martinruizn?tab=repositories" class="btn !text-neutral-900 dark:!text-neutral-900">Ver en GitHub</a>
+        <a href="/blog" class="btn-outline !text-neutral-900 dark:!text-brand">Blog</a>
       </div>
     </div>
   </section>
   <section class="mt-12">
+    <div class="card p-8">
+      <div class="prose">
+        <h2>Sobre mí</h2>
+        <p>
+          Hola, soy Martín. Pasé casi 10 años en el mundo comercial hasta que descubrí que lo mío también estaba en el código. Hoy me dedico al desarrollo de software, donde mezclo lo que aprendí de los negocios con la creatividad de programar. Me gusta trabajar con tecnologías web como JavaScript, React, Node.js, pero sobre todo, me apasiona aprender, construir y compartir proyectos que realmente aporten algo a las personas.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="mt-16">
     <h2 class="mb-6 text-xl font-bold">Proyectos recientes</h2>
     <div class="grid gap-4 sm:grid-cols-2">
       {padded.map((p) => (
@@ -126,8 +134,8 @@ const padded = [
           </p>
         </div>
         <div class="flex gap-3">
-          <a class="btn" href="mailto:hola@martin.dev">Escríbeme</a>
-          <a class="btn-outline" href="https://www.linkedin.com/in/martin-ruizn/">Conectemos en LinkedIn</a>
+          <a class="btn !text-neutral-900 dark:!text-neutral-900" href="mailto:hola@martin.dev">Escríbeme</a>
+          <a class="btn-outline !text-neutral-900 dark:!text-brand" href="https://www.linkedin.com/in/martin-ruizn/">Conectemos en LinkedIn</a>
         </div>
       </div>
     </div>
