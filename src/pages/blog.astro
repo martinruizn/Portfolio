@@ -1,19 +1,52 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => {
+  const da = a.data.pubDate ? new Date(a.data.pubDate).getTime() : 0;
+  const db = b.data.pubDate ? new Date(b.data.pubDate).getTime() : 0;
+  return db - da;
+});
+const cards = posts.map((p) => ({
+  title: p.data.title,
+  teaser: p.data.description ?? undefined,
+  year: p.data.pubDate ? new Date(p.data.pubDate).getFullYear() : undefined,
+  tags: p.data.tags ?? [],
+  href: `/blog/${p.slug}`,
+}));
 ---
 
-<BaseLayout title="Blog — Martin Ruiz" description="Escritos, ideas y notas de Martin Ruiz">
+<BaseLayout
+  title="Blog — Martin Ruiz"
+  description="Escritos, ideas y notas de Martin Ruiz"
+>
   <section class="prose">
     <h1>Blog</h1>
     <p>
-      Este será mi espacio de escritura: ideas sobre frontend, arquitectura,
-      rendimiento y DX. Pronto publicaré artículos y notas breves.
-    </p>
-    <p>
-      Mientras tanto, puedes suscribirte al <a href="/rss.xml">RSS</a> o
-      seguirme en <a href="https://www.linkedin.com/in/martin-ruizn/">LinkedIn</a>.
+      Suscríbete al <a href="/rss.xml">RSS</a> para nuevas publicaciones.
     </p>
   </section>
+
+  <section class="mt-8">
+    {
+      cards.length === 0 ? (
+        <p class="text-neutral-600 dark:text-neutral-300">
+          Aún no hay publicaciones.
+        </p>
+      ) : (
+        <div class="grid gap-4 sm:grid-cols-2">
+          {cards.map((c) => (
+            <ProjectCard
+              title={c.title}
+              teaser={c.teaser}
+              year={c.year}
+              tags={c.tags}
+              href={c.href}
+            />
+          ))}
+        </div>
+      )
+    }
+  </section>
 </BaseLayout>
-
-
