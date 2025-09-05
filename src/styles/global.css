@@ -1,6 +1,5 @@
 @import '@fontsource-variable/inter';
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -54,9 +53,46 @@ body {
   @apply inline-flex items-center gap-2 rounded-lg border border-brand px-4 py-2 font-semibold text-brand transition hover:bg-brand/10 focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
+/* Compact button modifier for smaller controls like theme toggle */
+.btn-compact {
+  @apply px-2 py-1 text-sm;
+}
+
 /* Prose defaults */
 .prose {
   @apply prose-neutral dark:prose-invert max-w-none;
 }
 
 /* (tilt animation removed for cleanliness) */
+
+/* Page transition helpers */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.page-enter {
+  animation: fade-in 600ms ease both;
+}
+.page-exit {
+  animation: fade-out 600ms ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .page-exit {
+    animation: none;
+  }
+}
+
+/* (nav highlight removed) */

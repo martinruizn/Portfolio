@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog"
+  },
+  "cta": {
+    "viewGithub": "View on GitHub",
+    "blog": "Blog",
+    "writeMe": "Write me",
+    "connectLinkedIn": "Connect on LinkedIn"
+  },
+  "hero": {
+    "role": "Fullstack Developer"
+  },
+  "home": {
+    "talkTitle": "Shall we talk?",
+    "talkBody": "Do you have an idea, project or proposal? Let's make it happen.",
+    "recentProjects": "Recent projects"
+  },
+  "about": {
+    "title": "This section is now Blog",
+    "p1a": "I replaced “About me” with",
+    "p1b": ", where I will publish my writings. Update your bookmarks.",
+    "p2a": "You can also see my",
+    "p2b": "or write to",
+    "projects": "projects"
+  },
+  "blog": {
+    "subscribe": "Subscribe to",
+    "forUpdates": "for new posts."
+  }
+}
