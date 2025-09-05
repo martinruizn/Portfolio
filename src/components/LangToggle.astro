@@ -1,0 +1,81 @@
+---
+const label = 'Cambiar idioma';
+---
+
+<button
+  data-lang-toggle
+  class="inline-flex items-center"
+  aria-label={label}
+  aria-pressed="false"
+>
+  <span
+    data-switch
+    class="relative inline-flex h-5 w-12 items-center rounded-full transition-colors bg-neutral-300 dark:bg-neutral-700 data-[state=en]:bg-brand"
+  >
+    <span
+      data-icon="es"
+      class="pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-60 data-[active=true]:opacity-100 text-neutral-900 dark:text-white"
+      >ES</span
+    >
+    <span
+      data-icon="en"
+      class="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-60 data-[active=true]:opacity-100 text-neutral-900 dark:text-white"
+      >EN</span
+    >
+    <span
+      data-thumb
+      class="relative z-[1] ml-0.5 inline-block h-4 w-5 rounded-full bg-white shadow ring-1 ring-black/10 transition-transform translate-x-0 data-[state=en]:translate-x-6"
+    ></span>
+  </span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector('[data-lang-toggle]');
+  const track = btn?.querySelector('[data-switch]');
+  const thumb = btn?.querySelector('[data-thumb]');
+  const es = btn?.querySelector('[data-icon="es"]');
+  const en = btn?.querySelector('[data-icon="en"]');
+
+  function updateUI(lang) {
+    const isEN = lang === 'en';
+    btn?.setAttribute('aria-pressed', String(isEN));
+    track?.setAttribute('data-state', isEN ? 'en' : 'es');
+    thumb?.setAttribute('data-state', isEN ? 'en' : 'es');
+    es?.setAttribute('data-active', String(!isEN));
+    en?.setAttribute('data-active', String(isEN));
+  }
+
+  function applyLang(next) {
+    root.lang = next;
+    try {
+      localStorage.setItem('lang', next);
+    } catch {}
+    updateUI(next);
+    try {
+      window.dispatchEvent(new CustomEvent('lang-change', { detail: next }));
+    } catch {}
+  }
+
+  // Initialize from storage or navigator
+  let initial = 'es';
+  try {
+    const stored = localStorage.getItem('lang');
+    if (stored === 'en' || stored === 'es') {
+      initial = stored;
+    } else if (
+      navigator.language &&
+      navigator.language.toLowerCase().startsWith('en')
+    ) {
+      initial = 'en';
+    }
+  } catch {}
+  applyLang(initial);
+
+  // Click handler
+  btn?.addEventListener('click', () => {
+    const current = root.lang === 'en' ? 'en' : 'es';
+    const next = current === 'en' ? 'es' : 'en';
+    applyLang(next);
+  });
+</script>

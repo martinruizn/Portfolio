@@ -4,14 +4,47 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="¡Nos mudamos!" description="El contenido está ahora en Blog">
   <section class="prose">
-    <h1>Esta sección ahora es Blog</h1>
+    <h1 id="about-title">Esta sección ahora es Blog</h1>
     <p>
-      He reemplazado “Sobre mí” por <a href="/blog">Blog</a>, donde publicaré
-      mis escritos. Actualiza tus marcadores.
+      <span id="about-p1">He reemplazado “Sobre mí” por</span>
+      <a href="/blog" id="about-link-blog">Blog</a>, <span id="about-p1b"
+        >donde publicaré mis escritos. Actualiza tus marcadores.</span
+      >
     </p>
     <p>
-      También puedes ver mis <a href="/blog">proyectos</a> o escribirme a
-      <a href="mailto:hola@martin.dev">hola@martin.dev</a>.
+      <span id="about-p2a">También puedes ver mis</span>
+      <a href="/blog" id="about-link-projects">proyectos</a>
+      <span id="about-p2b">o escribirme a</span>
+      <a href="mailto:hola@martin.dev" id="about-mail">hola@martin.dev</a>.
     </p>
   </section>
 </BaseLayout>
+
+<script type="module">
+  import { getT, onLangChange } from '/src/i18n/index.ts';
+  const t = (k) => {
+    try {
+      return getT(document.documentElement.lang)(k);
+    } catch {
+      return k;
+    }
+  };
+  function updateAbout() {
+    const title = document.getElementById('about-title');
+    if (title) title.textContent = t('about.title');
+    const p1a = document.getElementById('about-p1');
+    if (p1a) p1a.textContent = t('about.p1a');
+    const p1b = document.getElementById('about-p1b');
+    if (p1b) p1b.textContent = t('about.p1b');
+    const p2a = document.getElementById('about-p2a');
+    if (p2a) p2a.textContent = t('about.p2a');
+    const p2b = document.getElementById('about-p2b');
+    if (p2b) p2b.textContent = t('about.p2b');
+    const linkBlog = document.getElementById('about-link-blog');
+    if (linkBlog) linkBlog.textContent = t('nav.blog');
+    const linkProj = document.getElementById('about-link-projects');
+    if (linkProj) linkProj.textContent = t('about.projects');
+  }
+  updateAbout();
+  onLangChange(() => updateAbout());
+</script>

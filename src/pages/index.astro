@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getT, onLangChange } from '../i18n/index.ts';
 import ProjectCard from '../components/ProjectCard.astro';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-async function getRepoMeta(
-  repoUrl: string,
-): Promise<{
+async function getRepoMeta(repoUrl: string): Promise<{
   avatar?: string;
   stars?: number;
   name?: string;
@@ -103,16 +102,22 @@ const padded = [
       <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
         Martin Ruiz
       </h1>
-      <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300">
+      <p
+        id="hero-role"
+        class="mt-4 text-lg text-neutral-600 dark:text-neutral-300"
+      >
         Desarrollador Fullstack
       </p>
       <div class="mt-8 flex items-center justify-center gap-3">
         <a
+          id="cta-github"
           href="https://github.com/martinruizn?tab=repositories"
-          class="btn !text-neutral-900 dark:!text-neutral-900">Ver en GitHub</a
+          class="btn !text-white dark:!text-neutral-300">Ver en GitHub</a
         >
-        <a href="/blog" class="btn-outline !text-neutral-900 dark:!text-brand"
-          >Blog</a
+        <a
+          id="cta-blog"
+          href="/blog"
+          class="btn-outline !text-neutral-900 dark:!text-neutral-300">Blog</a
         >
       </div>
     </div>
@@ -124,17 +129,17 @@ const padded = [
         <p>
           Hola, soy Martín. Pasé casi 10 años en el mundo comercial hasta que
           descubrí que lo mío también estaba en el código. Hoy me dedico al
-          desarrollo de software, donde mezclo lo que aprendí de los negocios
-          con la creatividad de programar. Me gusta trabajar con tecnologías web
-          como JavaScript, React, Node.js, pero sobre todo, me apasiona
-          aprender, construir y compartir proyectos que realmente aporten algo a
-          las personas.
+          desarrollo de software, donde mezclo mi experiencia en los negocios
+          con la creatividad de programar e implementar IA. Me gusta trabajar
+          con tecnologías web como JavaScript, React, Node.js, pero sobre todo,
+          me apasiona aprender, construir y compartir proyectos que realmente
+          aporten algo a las personas.
         </p>
       </div>
     </div>
   </section>
   <section class="mt-16">
-    <h2 class="mb-6 text-xl font-bold">Proyectos recientes</h2>
+    <h2 id="home-recent" class="mb-6 text-xl font-bold">Proyectos recientes</h2>
     <div class="grid gap-4 sm:grid-cols-2">
       {
         padded.map((p) => (
@@ -157,19 +162,23 @@ const padded = [
         class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"
       >
         <div>
-          <h2 class="text-xl font-bold">¿Hablamos?</h2>
-          <p class="mt-1 text-neutral-600 dark:text-neutral-300">
-            ¿Tienes una idea, proyecto o propuesta? Me encanta construir
-            productos bien hechos.
+          <h2 id="home-talk-title" class="text-xl font-bold">¿Hablamos?</h2>
+          <p
+            id="home-talk-body"
+            class="mt-1 text-neutral-600 dark:text-neutral-300"
+          >
+            ¿Tienes una idea, proyecto o propuesta? Hagámoslo realidad.
           </p>
         </div>
         <div class="flex gap-3">
           <a
-            class="btn !text-neutral-900 dark:!text-neutral-900"
+            id="cta-write"
+            class="btn !text-white dark:!text-neutral-300"
             href="mailto:hola@martin.dev">Escríbeme</a
           >
           <a
-            class="btn-outline !text-neutral-900 dark:!text-brand"
+            id="cta-linkedin"
+            class="btn-outline !text-neutral-900 dark:!text-neutral-300"
             href="https://www.linkedin.com/in/martin-ruizn/"
             >Conectemos en LinkedIn</a
           >
@@ -178,3 +187,34 @@ const padded = [
     </div>
   </section>
 </BaseLayout>
+
+<script type="module">
+  import { getT, onLangChange } from '/src/i18n/index.ts';
+  const t = (key) => {
+    try {
+      return getT(document.documentElement.lang)(key);
+    } catch {
+      return key;
+    }
+  };
+  function updateHomeTexts() {
+    const role = document.getElementById('hero-role');
+    if (role) role.textContent = t('hero.role');
+    const recent = document.getElementById('home-recent');
+    if (recent) recent.textContent = t('home.recentProjects');
+    const talkTitle = document.getElementById('home-talk-title');
+    if (talkTitle) talkTitle.textContent = t('home.talkTitle');
+    const talkBody = document.getElementById('home-talk-body');
+    if (talkBody) talkBody.textContent = t('home.talkBody');
+    const gh = document.getElementById('cta-github');
+    if (gh) gh.textContent = t('cta.viewGithub');
+    const blog = document.getElementById('cta-blog');
+    if (blog) blog.textContent = t('cta.blog');
+    const write = document.getElementById('cta-write');
+    if (write) write.textContent = t('cta.writeMe');
+    const li = document.getElementById('cta-linkedin');
+    if (li) li.textContent = t('cta.connectLinkedIn');
+  }
+  updateHomeTexts();
+  onLangChange(() => updateHomeTexts());
+</script>

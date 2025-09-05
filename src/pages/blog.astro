@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getT, onLangChange } from '/src/i18n/index.ts';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -22,8 +23,8 @@ const cards = posts.map((p) => ({
   description="Escritos, ideas y notas de Martin Ruiz"
 >
   <section class="prose">
-    <h1>Blog</h1>
-    <p>
+    <h1 id="blog-title">Blog</h1>
+    <p id="blog-sub">
       Suscríbete al <a href="/rss.xml">RSS</a> para nuevas publicaciones.
     </p>
   </section>
@@ -50,3 +51,23 @@ const cards = posts.map((p) => ({
     }
   </section>
 </BaseLayout>
+
+<script type="module">
+  import { getT, onLangChange } from '/src/i18n/index.ts';
+  const t = (k) => {
+    try {
+      return getT(document.documentElement.lang)(k);
+    } catch {
+      return k;
+    }
+  };
+  function updateBlog() {
+    const h = document.getElementById('blog-title');
+    if (h) h.textContent = t('nav.blog');
+    const sub = document.getElementById('blog-sub');
+    if (sub)
+      sub.innerHTML = `${t('blog.subscribe')} <a href="/rss.xml">RSS</a> ${t('blog.forUpdates')}`;
+  }
+  updateBlog();
+  onLangChange(() => updateBlog());
+</script>
