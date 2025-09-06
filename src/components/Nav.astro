@@ -9,30 +9,38 @@ import { getT, onLangChange } from '../i18n/index.ts';
 ---
 
 <nav
-  class="border-b border-neutral-200/60 bg-white/70 backdrop-blur dark:border-neutral-800 dark:bg-neutral-950/70"
+  class="sticky top-0 z-50 bg-white/70 backdrop-blur transition-all data-[compact=true]:shadow-md dark:bg-neutral-950/70"
 >
-  <div class="container relative flex h-14 items-center">
+  <div
+    class="container relative flex h-14 items-center transition-all"
+    data-nav-inner
+  >
     <a href="/" class="inline-flex items-center gap-2" aria-label="Inicio">
       <img
         src="/logo.png"
         alt="Martin Ruiz"
         width="120"
         height="24"
-        class="h-12 w-auto block dark:hidden"
+        class="h-12 w-auto block transition-all data-[compact=true]:h-8 dark:hidden"
       />
       <img
         src="/logo-dark.png"
         alt="Martin Ruiz"
         width="120"
         height="24"
-        class="h-12 w-auto hidden dark:block"
+        class="h-12 w-auto hidden transition-all data-[compact=true]:h-8 dark:block"
       />
     </a>
-    <div class="flex-1 flex justify-center items-center gap-4">
+    <div
+      class="flex-1 flex justify-center items-center gap-4 transition-all data-[compact=true]:gap-3"
+    >
       <div
-        class="relative rounded-full border border-neutral-200/60 bg-white/80 p-1 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70"
+        data-pills
+        class="relative rounded-full bg-white/80 p-1 shadow-sm backdrop-blur transition-all data-[compact=true]:scale-90 data-[compact=true]:p-0.5 dark:bg-neutral-900/70"
       >
-        <div class="flex items-center gap-2">
+        <div
+          class="flex items-center gap-2 transition-all data-[compact=true]:gap-1"
+        >
           {
             links.map((l) => {
               const currentPath = Astro.url.pathname;
@@ -46,10 +54,10 @@ import { getT, onLangChange } from '../i18n/index.ts';
                   aria-current={active ? 'page' : undefined}
                   aria-label={l.label}
                   class={[
-                    'inline-flex items-center h-10 rounded-full transition-all',
+                    'inline-flex items-center h-10 rounded-full transition-all data-[compact=true]:h-8 data-[compact=true]:text-xs',
                     active
-                      ? 'pl-2 pr-4 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
-                      : 'p-2 bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700',
+                      ? 'pl-2 pr-4 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 data-[compact=true]:pl-2 data-[compact=true]:pr-3'
+                      : 'p-2 bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700 data-[compact=true]:p-1.5',
                   ].join(' ')}
                 >
                   {l.label === 'Home' ? (
@@ -58,7 +66,7 @@ import { getT, onLangChange } from '../i18n/index.ts';
                       height="18"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      class="shrink-0"
+                      class="shrink-0 transition-all data-[compact=true]:scale-90"
                       fill="currentColor"
                     >
                       <path d="M12 3.172 3 10v10a1 1 0 0 0 1 1h6v-6h4v6h6a1 1 0 0 0 1-1V10l-9-6.828z" />
@@ -69,7 +77,7 @@ import { getT, onLangChange } from '../i18n/index.ts';
                       height="18"
                       viewBox="0 0 24 24"
                       aria-hidden="true"
-                      class="shrink-0"
+                      class="shrink-0 transition-all data-[compact=true]:scale-90"
                       fill="currentColor"
                     >
                       <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V5z" />
@@ -93,7 +101,10 @@ import { getT, onLangChange } from '../i18n/index.ts';
         </div>
       </div>
     </div>
-    <div class="ml-auto flex items-center gap-3">
+    <div
+      class="ml-auto flex items-center gap-3 transition-all data-[compact=true]:scale-90"
+      data-actions
+    >
       <LangToggle />
       <ThemeToggle />
     </div>
@@ -126,6 +137,24 @@ import { getT, onLangChange } from '../i18n/index.ts';
       };
       updateNavLabels();
       onLangChange(() => updateNavLabels());
+      // Compact navbar on scroll
+      const nav = document.querySelector('nav');
+      const inner = document.querySelector('[data-nav-inner]');
+      const actions = document.querySelector('[data-actions]');
+      const pills = document.querySelector('[data-pills]');
+      const applyCompact = () => {
+        const compact = window.scrollY > 8;
+        if (nav) nav.setAttribute('data-compact', String(compact));
+        if (inner) inner.setAttribute('data-compact', String(compact));
+        if (actions) actions.setAttribute('data-compact', String(compact));
+        if (pills) pills.setAttribute('data-compact', String(compact));
+        document
+          .querySelectorAll('nav a[aria-label]')
+          .forEach((a) => a.setAttribute('data-compact', String(compact)));
+      };
+      applyCompact();
+      window.addEventListener('scroll', applyCompact, { passive: true });
+      window.addEventListener('resize', applyCompact);
       const main = document.querySelector('main');
       // Fade-in on load
       if (main) {
