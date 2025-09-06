@@ -14,7 +14,7 @@ const label = 'Cambiar idioma';
   >
     <span
       data-icon="es"
-      class="pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-60 data-[active=true]:opacity-100 text-neutral-900 dark:text-white"
+      class="pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-60 data-[active=true]:opacity-100 text-white"
       >ES</span
     >
     <span
@@ -30,6 +30,7 @@ const label = 'Cambiar idioma';
 </button>
 
 <script>
+  // @ts-nocheck
   const root = document.documentElement;
   const btn = document.querySelector('[data-lang-toggle]');
   const track = btn?.querySelector('[data-switch]');
@@ -37,6 +38,7 @@ const label = 'Cambiar idioma';
   const es = btn?.querySelector('[data-icon="es"]');
   const en = btn?.querySelector('[data-icon="en"]');
 
+  /** @param {string} lang */
   function updateUI(lang) {
     const isEN = lang === 'en';
     btn?.setAttribute('aria-pressed', String(isEN));
@@ -46,6 +48,7 @@ const label = 'Cambiar idioma';
     en?.setAttribute('data-active', String(isEN));
   }
 
+  /** @param {string} next */
   function applyLang(next) {
     root.lang = next;
     try {
