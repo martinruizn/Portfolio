@@ -1,11 +1,11 @@
 ---
-title: "El post de ejemplo"
-description: "Un primer post para probar el RSS"
+title: 'El primer post'
+description: 'Echale un ojo a mi primer post'
 pubDate: 2025-01-01
-tags: ["intro", "update"]
+tags: ['intro', 'update']
 ---
 
-Este es un post de ejemplo para validar que el feed RSS funcione y que la colección `blog` está bien configurada.
+Pacienciaaaa esto se esta cocinando aún, pero te va a encantar cuando este listo..
 
-- Puedes editar este archivo o crear nuevos en `src/content/blog/`.
-- El feed se genera en `/rss.xml`.
+- Puedes contactar conmigo via email a `martinruiz91n@gmail.com` .
+- Ver mi github desde mi perfil.
