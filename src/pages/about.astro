@@ -21,7 +21,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 </BaseLayout>
 
 <script type="module">
-  import { getT, onLangChange } from '/src/i18n/index.ts';
+  import { getT, onLangChange } from '@/i18n/index.ts';
   const t = (k) => {
     try {
       return getT(document.documentElement.lang)(k);

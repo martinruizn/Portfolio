@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 import tailwind from '@astrojs/tailwind';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
@@ -22,4 +23,11 @@ export default defineConfig({
   },
   // If Bun has issues building native sharp, use Squoosh fallback:
   // image: { service: { entrypoint: 'astro/assets/services/squoosh' } }
+  vite: {
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+  },
 });
