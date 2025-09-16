@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getT, onLangChange } from '@/i18n/index.ts';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
@@ -52,15 +51,30 @@ const cards = posts.map((p) => ({
   </section>
 </BaseLayout>
 
-<script type="module">
-  import { getT, onLangChange } from '@/i18n/index.ts';
+<script>
+  // @ts-nocheck
+  const translations = {
+    es: {
+      'nav.blog': 'Blog',
+      'blog.subscribe': 'Suscríbete al',
+      'blog.forUpdates': 'para nuevas publicaciones.',
+    },
+    en: {
+      'nav.blog': 'Blog',
+      'blog.subscribe': 'Subscribe to',
+      'blog.forUpdates': 'for new posts.',
+    },
+  };
+
   const t = (k) => {
     try {
-      return getT(document.documentElement.lang)(k);
+      const lang = document.documentElement.lang || 'es';
+      return translations[lang]?.[k] || k;
     } catch {
       return k;
     }
   };
+
   function updateBlog() {
     const h = document.getElementById('blog-title');
     if (h) h.textContent = t('nav.blog');
@@ -68,6 +82,7 @@ const cards = posts.map((p) => ({
     if (sub)
       sub.innerHTML = `${t('blog.subscribe')} <a href="/rss.xml">RSS</a> ${t('blog.forUpdates')}`;
   }
+
   updateBlog();
-  onLangChange(() => updateBlog());
+  window.addEventListener('lang-change', () => updateBlog());
 </script>
