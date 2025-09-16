@@ -190,15 +190,42 @@ const padded = [
   </section>
 </BaseLayout>
 
-<script type="module">
-  import { getT, onLangChange } from '@/i18n/index.ts';
+<script>
+  // @ts-nocheck
+  const translations = {
+    es: {
+      'hero.role': 'Desarrollador Fullstack',
+      'home.recentProjects': 'Proyectos recientes',
+      'home.talkTitle': '¿Hablamos?',
+      'home.talkBody':
+        '¿Tienes una idea, proyecto o propuesta? Hagámoslo realidad.',
+      'cta.viewGithub': 'Ver en GitHub',
+      'cta.blog': 'Blog',
+      'cta.writeMe': 'Escríbeme',
+      'cta.connectLinkedIn': 'Conectemos en LinkedIn',
+    },
+    en: {
+      'hero.role': 'Fullstack Developer',
+      'home.recentProjects': 'Recent projects',
+      'home.talkTitle': 'Shall we talk?',
+      'home.talkBody':
+        "Do you have an idea, project or proposal? Let's make it happen.",
+      'cta.viewGithub': 'View on GitHub',
+      'cta.blog': 'Blog',
+      'cta.writeMe': 'Write me',
+      'cta.connectLinkedIn': 'Connect on LinkedIn',
+    },
+  };
+
   const t = (key) => {
     try {
-      return getT(document.documentElement.lang)(key);
+      const lang = document.documentElement.lang || 'es';
+      return translations[lang]?.[key] || key;
     } catch {
       return key;
     }
   };
+
   function updateHomeTexts() {
     const role = document.getElementById('hero-role');
     if (role) role.textContent = t('hero.role');
@@ -217,6 +244,7 @@ const padded = [
     const li = document.getElementById('cta-linkedin');
     if (li) li.textContent = t('cta.connectLinkedIn');
   }
+
   updateHomeTexts();
-  onLangChange(() => updateHomeTexts());
+  window.addEventListener('lang-change', () => updateHomeTexts());
 </script>
