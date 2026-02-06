@@ -1,6 +1,8 @@
 ---
 import Nav from '../components/Nav.astro';
 import '../styles/global.css';
+import en from '../i18n/en.json';
+import es from '../i18n/es.json';
 
 const {
   title = 'Martin Ruiz — Portafolio',
@@ -54,6 +56,20 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
+    <script define:vars={{ en, es }}>
+      window.__i18n__ = { en, es };
+      window.__t__ = function (key) {
+        try {
+          const lang = (document.documentElement.lang === 'en' ? 'en' : 'es');
+          const dict = window.__i18n__[lang] || window.__i18n__.es;
+          const value = key.split('.').reduce(function (o, k) { return o && o[k]; }, dict);
+          return typeof value === 'string' ? value : key;
+        } catch (e) {
+          return key;
+        }
+      };
+    </script>
+
     {
       /* Ejemplo de override por página:
     <BaseLayout og={{ ...og, title: 'Página X', url: 'https://martinruiz.dev/x' }}>
@@ -67,5 +83,23 @@ const jsonLd = {
     <main class="container py-10">
       <slot />
     </main>
+    <script>
+      (function () {
+        function updateAriaLabels() {
+          if (typeof window.__t__ !== 'function') return;
+          var fn = window.__t__;
+          var langBtn = document.querySelector('[data-lang-toggle]');
+          if (langBtn) langBtn.setAttribute('aria-label', fn('aria.changeLanguage'));
+          var themeBtn = document.querySelector('[data-theme-toggle]');
+          if (themeBtn) themeBtn.setAttribute('aria-label', fn('aria.toggleTheme'));
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', updateAriaLabels);
+        } else {
+          updateAriaLabels();
+        }
+        window.addEventListener('lang-change', updateAriaLabels);
+      })();
+    </script>
   </body>
 </html>

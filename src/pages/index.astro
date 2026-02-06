@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getT, onLangChange } from '../i18n/index.ts';
 import ProjectCard from '../components/ProjectCard.astro';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -55,6 +54,7 @@ const curated = await Promise.all(
     return {
       title: meta.name ?? repoName,
       teaser: meta.description ?? 'Repositorio en GitHub',
+      teaserKey: !meta.description ? 'projects.repoOnGitHub' : undefined,
       year: undefined,
       tags: ['github'],
       href,
@@ -71,6 +71,8 @@ const padded = [
     .map(() => ({
       title: 'Proyecto en GitHub',
       teaser: 'Visita mis repositorios para ver más trabajos.',
+      titleKey: 'projects.placeholderTitle',
+      teaserKey: 'projects.visitRepos',
       year: undefined,
       tags: ['github'],
       href: 'https://github.com/martinruizn?tab=repositories',
@@ -127,8 +129,8 @@ const padded = [
   <section class="mt-2">
     <div class="card p-8 !shadow-lg hover:!shadow-xl">
       <div class="prose">
-        <h2>Sobre mí</h2>
-        <p>
+        <h2 id="about-section-title">Sobre mí</h2>
+        <p id="about-intro">
           Hola, soy Martín. Pasé casi 10 años en el mundo comercial hasta que
           descubrí que lo mío también estaba en el código. Hoy me dedico al
           desarrollo de software, donde mezclo mi experiencia en los negocios
@@ -148,6 +150,8 @@ const padded = [
           <ProjectCard
             title={p.title}
             teaser={p.teaser}
+            titleKey={p.titleKey}
+            teaserKey={p.teaserKey}
             year={p.year}
             tags={p.tags}
             href={p.href}
@@ -192,59 +196,57 @@ const padded = [
 
 <script>
   // @ts-nocheck
-  const translations = {
-    es: {
-      'hero.role': 'Desarrollador Fullstack',
-      'home.recentProjects': 'Proyectos recientes',
-      'home.talkTitle': '¿Hablamos?',
-      'home.talkBody':
-        '¿Tienes una idea, proyecto o propuesta? Hagámoslo realidad.',
-      'cta.viewGithub': 'Ver en GitHub',
-      'cta.blog': 'Blog',
-      'cta.writeMe': 'Escríbeme',
-      'cta.connectLinkedIn': 'Conectemos en LinkedIn',
-    },
-    en: {
-      'hero.role': 'Fullstack Developer',
-      'home.recentProjects': 'Recent projects',
-      'home.talkTitle': 'Shall we talk?',
-      'home.talkBody':
-        "Do you have an idea, project or proposal? Let's make it happen.",
-      'cta.viewGithub': 'View on GitHub',
-      'cta.blog': 'Blog',
-      'cta.writeMe': 'Write me',
-      'cta.connectLinkedIn': 'Connect on LinkedIn',
-    },
-  };
+  const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
 
-  const t = (key) => {
-    try {
-      const lang = document.documentElement.lang || 'es';
-      return translations[lang]?.[key] || key;
-    } catch {
-      return key;
-    }
-  };
-
-  function updateHomeTexts() {
-    const role = document.getElementById('hero-role');
-    if (role) role.textContent = t('hero.role');
-    const recent = document.getElementById('home-recent');
-    if (recent) recent.textContent = t('home.recentProjects');
-    const talkTitle = document.getElementById('home-talk-title');
-    if (talkTitle) talkTitle.textContent = t('home.talkTitle');
-    const talkBody = document.getElementById('home-talk-body');
-    if (talkBody) talkBody.textContent = t('home.talkBody');
-    const gh = document.getElementById('cta-github');
-    if (gh) gh.textContent = t('cta.viewGithub');
-    const blog = document.getElementById('cta-blog');
-    if (blog) blog.textContent = t('cta.blog');
-    const write = document.getElementById('cta-write');
-    if (write) write.textContent = t('cta.writeMe');
-    const li = document.getElementById('cta-linkedin');
-    if (li) li.textContent = t('cta.connectLinkedIn');
+  function updateMeta() {
+    const fn = t();
+    if (document.querySelector('meta[name="description"]'))
+      document.querySelector('meta[name="description"]').setAttribute('content', fn('meta.homeDescription'));
+    document.title = fn('meta.homeTitle');
   }
 
-  updateHomeTexts();
-  window.addEventListener('lang-change', () => updateHomeTexts());
+  function updateHomeTexts() {
+    const fn = t();
+    const role = document.getElementById('hero-role');
+    if (role) role.textContent = fn('hero.role');
+    const recent = document.getElementById('home-recent');
+    if (recent) recent.textContent = fn('home.recentProjects');
+    const aboutTitle = document.getElementById('about-section-title');
+    if (aboutTitle) aboutTitle.textContent = fn('about.sectionTitle');
+    const aboutIntro = document.getElementById('about-intro');
+    if (aboutIntro) aboutIntro.textContent = fn('about.intro');
+    const talkTitle = document.getElementById('home-talk-title');
+    if (talkTitle) talkTitle.textContent = fn('home.talkTitle');
+    const talkBody = document.getElementById('home-talk-body');
+    if (talkBody) talkBody.textContent = fn('home.talkBody');
+    const gh = document.getElementById('cta-github');
+    if (gh) gh.textContent = fn('cta.viewGithub');
+    const blog = document.getElementById('cta-blog');
+    if (blog) blog.textContent = fn('cta.blog');
+    const write = document.getElementById('cta-write');
+    if (write) write.textContent = fn('cta.writeMe');
+    const li = document.getElementById('cta-linkedin');
+    if (li) li.textContent = fn('cta.connectLinkedIn');
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-title');
+      if (key) el.textContent = fn(key);
+    });
+    document.querySelectorAll('[data-i18n-teaser]').forEach((el) => {
+      const key = el.getAttribute('data-i18n-teaser');
+      if (key) el.textContent = fn(key);
+    });
+    document.querySelectorAll('[data-avatar-alt]').forEach((el) => {
+      el.setAttribute('alt', fn('projects.repoAvatar'));
+    });
+  }
+
+  function init() {
+    updateMeta();
+    updateHomeTexts();
+  }
+  init();
+  window.addEventListener('lang-change', () => {
+    updateMeta();
+    updateHomeTexts();
+  });
 </script>

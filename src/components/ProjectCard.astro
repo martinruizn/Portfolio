@@ -2,6 +2,8 @@
 const {
   title,
   teaser,
+  titleKey,
+  teaserKey,
   year,
   tags = [],
   href,
@@ -10,6 +12,8 @@ const {
 } = Astro.props as {
   title: string;
   teaser?: string;
+  titleKey?: string;
+  teaserKey?: string;
   year?: number;
   tags?: string[];
   href: string;
@@ -33,6 +37,7 @@ const isExternal = href.startsWith('http');
             <img
               src={avatar}
               alt="Avatar del repositorio"
+              data-avatar-alt
               width="28"
               height="28"
               class="h-7 w-7 rounded-full"
@@ -40,12 +45,22 @@ const isExternal = href.startsWith('http');
             />
           )
         }
-        <h3 class="truncate text-lg font-semibold">{title}</h3>
+        <h3 class="truncate text-lg font-semibold">
+          {titleKey ? (
+            <span data-i18n-title={titleKey}>{title}</span>
+          ) : (
+            title
+          )}
+        </h3>
       </div>
       {
         teaser && (
           <p class="mt-1 text-sm text-neutral-600 dark:text-neutral-300">
-            {teaser}
+            {teaserKey ? (
+              <span data-i18n-teaser={teaserKey}>{teaser}</span>
+            ) : (
+              teaser
+            )}
           </p>
         )
       }
