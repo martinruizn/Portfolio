@@ -2,9 +2,7 @@
   "nav": { "home": "Inicio", "blog": "Blog" },
   "meta": {
     "homeTitle": "Martin Ruiz — Portafolio",
-    "homeDescription": "Portafolio de Martin Ruiz",
-    "blogTitle": "Blog — Martin Ruiz",
-    "blogDescription": "Escritos, ideas y notas de Martin Ruiz"
+    "homeDescription": "Portafolio de Martin Ruiz"
   },
   "cta": {
     "viewGithub": "Ver en GitHub",
