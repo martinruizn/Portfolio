@@ -16,7 +16,7 @@ export async function GET(context: { site: URL | undefined; request: Request }) 
       title: p.data.title,
       description: p.data.description ?? p.data.title,
       pubDate: p.data.pubDate ?? new Date(),
-      link: `/blog/${p.slug}`,
+      link: `/blog/${p.id}`,
     }))
     .sort((a, b) => (a.pubDate > b.pubDate ? -1 : 1));
 
