@@ -1,7 +1,10 @@
 {
-  "nav": {
-    "home": "Home",
-    "blog": "Blog"
+  "nav": { "home": "Home", "blog": "Blog" },
+  "meta": {
+    "homeTitle": "Martin Ruiz — Portfolio",
+    "homeDescription": "Martin Ruiz's portfolio",
+    "blogTitle": "Blog — Martin Ruiz",
+    "blogDescription": "Writings, ideas and notes by Martin Ruiz"
   },
   "cta": {
     "viewGithub": "View on GitHub",
@@ -9,9 +12,7 @@
     "writeMe": "Write me",
     "connectLinkedIn": "Connect on LinkedIn"
   },
-  "hero": {
-    "role": "Fullstack Developer"
-  },
+  "hero": { "role": "Fullstack Developer" },
   "home": {
     "talkTitle": "Shall we talk?",
     "talkBody": "Do you have an idea, project or proposal? Let's make it happen.",
@@ -19,14 +20,39 @@
   },
   "about": {
     "title": "This section is now Blog",
-    "p1a": "I replaced “About me” with",
+    "sectionTitle": "About me",
+    "intro": "Hello, I'm Martín. I spent almost 10 years in the business world until I discovered that code was my thing too. Today I focus on software development, mixing my business experience with the creativity of programming and implementing AI. I enjoy working with web technologies like JavaScript, React, Node.js, but above all I'm passionate about learning, building and sharing projects that really add value to people.",
+    "p1a": "I replaced \"About me\" with",
     "p1b": ", where I will publish my writings. Update your bookmarks.",
     "p2a": "You can also see my",
     "p2b": "or write to",
     "projects": "projects"
   },
+  "projects": {
+    "kuyuriyAdolescentesTitle": "Kuyuriy Adolescents",
+    "kuyuriyAdolescentesTeaser": "Event registration flow: Landing + registration form + payment gateway integration (Payphone) + automatic invoicing (Dora - Contifico).",
+    "kuyuriyCentroTitle": "Kuyuriy Center",
+    "kuyuriyCentroTeaser": "Psychopedagogy and psychology center. Institutional website with form and analytics integration.",
+    "cspadelTitle": "Cs Padel",
+    "cspadelTeaser": "Main website and lead generation landing page for sports events.",
+    "natipsicopeTitle": "NatiPsicope",
+    "natipsicopeTeaser": "Landing page and registration for specialized workshops.",
+    "andesVeloTitle": "AndesVeloCycling",
+    "andesVeloTeaser": "Sports tourism platform prototype, centralizing routes, gastronomy, and hospitality.",
+    "campusAutoSpaTitle": "Campus AutoSpa",
+    "campusAutoSpaTeaser": "Payment, scheduling, and business tracking platform for a car wash business.",
+    "repoOnGitHub": "Repository on GitHub",
+    "placeholderTitle": "GitHub project",
+    "visitRepos": "Visit my repositories to see more work.",
+    "repoAvatar": "Repository avatar"
+  },
   "blog": {
     "subscribe": "Subscribe to",
-    "forUpdates": "for new posts."
+    "forUpdates": "for new posts.",
+    "noPosts": "No posts yet."
+  },
+  "aria": {
+    "changeLanguage": "Change language",
+    "toggleTheme": "Toggle theme"
   }
 }

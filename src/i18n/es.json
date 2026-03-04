@@ -1,7 +1,10 @@
 {
-  "nav": {
-    "home": "Home",
-    "blog": "Blog"
+  "nav": { "home": "Inicio", "blog": "Blog" },
+  "meta": {
+    "homeTitle": "Martin Ruiz — Portafolio",
+    "homeDescription": "Portafolio de Martin Ruiz",
+    "blogTitle": "Blog — Martin Ruiz",
+    "blogDescription": "Escritos, ideas y notas de Martin Ruiz"
   },
   "cta": {
     "viewGithub": "Ver en GitHub",
@@ -9,9 +12,7 @@
     "writeMe": "Escríbeme",
     "connectLinkedIn": "Conectemos en LinkedIn"
   },
-  "hero": {
-    "role": "Desarrollador Fullstack"
-  },
+  "hero": { "role": "Desarrollador Fullstack" },
   "home": {
     "talkTitle": "¿Hablamos?",
     "talkBody": "¿Tienes una idea, proyecto o propuesta? Hagámoslo realidad.",
@@ -19,14 +20,39 @@
   },
   "about": {
     "title": "Esta sección ahora es Blog",
-    "p1a": "He reemplazado “Sobre mí” por",
+    "sectionTitle": "Sobre mí",
+    "intro": "Hola, soy Martín. Pasé casi 10 años en el mundo comercial hasta que descubrí que lo mío también estaba en el código. Hoy me dedico al desarrollo de software, donde mezclo mi experiencia en los negocios con la creatividad de programar e implementar IA. Me gusta trabajar con tecnologías web como JavaScript, React, Node.js, pero sobre todo, me apasiona aprender, construir y compartir proyectos que realmente aporten algo a las personas.",
+    "p1a": "He reemplazado \"Sobre mí\" por",
     "p1b": ", donde publicaré mis escritos. Actualiza tus marcadores.",
     "p2a": "También puedes ver mis",
     "p2b": "o escribirme a",
     "projects": "proyectos"
   },
+  "projects": {
+    "kuyuriyAdolescentesTitle": "Kuyuriy Adolescentes",
+    "kuyuriyAdolescentesTeaser": "Flujo de inscripción a un evento: Landing + form de inscripción + vinculación con pasarela de pagos (Payphone) + emisión automática de facturación (Dora - Contifico).",
+    "kuyuriyCentroTitle": "Kuyuriy Centro",
+    "kuyuriyCentroTeaser": "Centro de psicopedagogía y psicología. Sitio web institucional con integración de formularios y analíticas.",
+    "cspadelTitle": "Cs Padel",
+    "cspadelTeaser": "Sitio web principal y Landing de captación de leads para eventos deportivos.",
+    "natipsicopeTitle": "NatiPsicope",
+    "natipsicopeTeaser": "Landing page e inscripción a talleres especializados.",
+    "andesVeloTitle": "AndesVeloCycling",
+    "andesVeloTeaser": "Prototipo de plataforma de turismo deportivo, centraliza rutas, gastronomía y hotelería.",
+    "campusAutoSpaTitle": "Campus AutoSpa",
+    "campusAutoSpaTeaser": "Plataforma de pago, agendamiento y seguimiento de negocio de lavado de autos.",
+    "repoOnGitHub": "Repositorio en GitHub",
+    "placeholderTitle": "Proyecto en GitHub",
+    "visitRepos": "Visita mis repositorios para ver más trabajos.",
+    "repoAvatar": "Avatar del repositorio"
+  },
   "blog": {
     "subscribe": "Suscríbete al",
-    "forUpdates": "para nuevas publicaciones."
+    "forUpdates": "para nuevas publicaciones.",
+    "noPosts": "Aún no hay publicaciones."
+  },
+  "aria": {
+    "changeLanguage": "Cambiar idioma",
+    "toggleTheme": "Cambiar tema"
   }
 }

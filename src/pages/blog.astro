@@ -31,7 +31,7 @@ const cards = posts.map((p) => ({
   <section class="mt-8">
     {
       cards.length === 0 ? (
-        <p class="text-neutral-600 dark:text-neutral-300">
+        <p id="blog-empty" class="text-neutral-600 dark:text-neutral-300">
           Aún no hay publicaciones.
         </p>
       ) : (
@@ -53,36 +53,33 @@ const cards = posts.map((p) => ({
 
 <script>
   // @ts-nocheck
-  const translations = {
-    es: {
-      'nav.blog': 'Blog',
-      'blog.subscribe': 'Suscríbete al',
-      'blog.forUpdates': 'para nuevas publicaciones.',
-    },
-    en: {
-      'nav.blog': 'Blog',
-      'blog.subscribe': 'Subscribe to',
-      'blog.forUpdates': 'for new posts.',
-    },
-  };
+  const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
 
-  const t = (k) => {
-    try {
-      const lang = document.documentElement.lang || 'es';
-      return translations[lang]?.[k] || k;
-    } catch {
-      return k;
-    }
-  };
-
-  function updateBlog() {
-    const h = document.getElementById('blog-title');
-    if (h) h.textContent = t('nav.blog');
-    const sub = document.getElementById('blog-sub');
-    if (sub)
-      sub.innerHTML = `${t('blog.subscribe')} <a href="/rss.xml">RSS</a> ${t('blog.forUpdates')}`;
+  function updateBlogMeta() {
+    const fn = t();
+    document.title = fn('meta.blogTitle');
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', fn('meta.blogDescription'));
   }
 
-  updateBlog();
-  window.addEventListener('lang-change', () => updateBlog());
+  function updateBlog() {
+    const fn = t();
+    const h = document.getElementById('blog-title');
+    if (h) h.textContent = fn('nav.blog');
+    const sub = document.getElementById('blog-sub');
+    if (sub)
+      sub.innerHTML = `${fn('blog.subscribe')} <a href="/rss.xml">RSS</a> ${fn('blog.forUpdates')}`;
+    const empty = document.getElementById('blog-empty');
+    if (empty) empty.textContent = fn('blog.noPosts');
+  }
+
+  function init() {
+    updateBlogMeta();
+    updateBlog();
+  }
+  init();
+  window.addEventListener('lang-change', () => {
+    updateBlogMeta();
+    updateBlog();
+  });
 </script>

@@ -1,7 +1,6 @@
 ---
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
 ];
 import ThemeToggle from './ThemeToggle.astro';
 import LangToggle from './LangToggle.astro';
@@ -14,7 +13,7 @@ import LangToggle from './LangToggle.astro';
     class="container relative flex h-14 items-center transition-all"
     data-nav-inner
   >
-    <a href="/" class="inline-flex items-center gap-2" aria-label="Inicio">
+    <a id="nav-logo-link" href="/" class="inline-flex items-center gap-2" aria-label="Inicio">
       <img
         src="/logo.png"
         alt="Martin Ruiz"
@@ -110,50 +109,28 @@ import LangToggle from './LangToggle.astro';
 
     <script>
       // @ts-nocheck
-      // Replace labels from i18n on language change (client-side enhancement)
-      const translations = {
-        es: {
-          'nav.home': 'Inicio',
-          'nav.blog': 'Blog',
-        },
-        en: {
-          'nav.home': 'Home',
-          'nav.blog': 'Blog',
-        },
-      };
-
-      const t = (path) => {
-        try {
-          const lang = document.documentElement.lang || 'es';
-          return translations[lang]?.[path] || path;
-        } catch {
-          return path;
-        }
-      };
+      const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
 
       const updateNavLabels = () => {
+        const fn = t();
+        const logo = document.getElementById('nav-logo-link');
+        if (logo) logo.setAttribute('aria-label', fn('nav.home'));
         const links = document.querySelectorAll('nav a[aria-label]');
         links.forEach((a) => {
           const href = a.getAttribute('href');
           const key =
             href === '/'
               ? 'nav.home'
-              : href?.startsWith('/blog')
-                ? 'nav.blog'
-                : '';
+              : '';
           if (!key) return;
-          a.setAttribute('aria-label', t(key));
+          a.setAttribute('aria-label', fn(key));
           const span = a.querySelector('span[aria-hidden]');
-          if (span) span.textContent = t(key);
+          if (span) span.textContent = fn(key);
         });
       };
 
       updateNavLabels();
-
-      // Listen for language changes
-      window.addEventListener('lang-change', () => {
-        updateNavLabels();
-      });
+      window.addEventListener('lang-change', updateNavLabels);
       // Compact navbar on scroll
       const nav = document.querySelector('nav');
       const inner = document.querySelector('[data-nav-inner]');
