@@ -29,6 +29,18 @@
     "projects": "proyectos"
   },
   "projects": {
+    "kuyuriyAdolescentesTitle": "Kuyuriy Adolescentes",
+    "kuyuriyAdolescentesTeaser": "Flujo de inscripción a un evento: Landing + form de inscripción + vinculación con pasarela de pagos (Payphone) + emisión automática de facturación (Dora - Contifico).",
+    "kuyuriyCentroTitle": "Kuyuriy Centro",
+    "kuyuriyCentroTeaser": "Centro de psicopedagogía y psicología. Sitio web institucional con integración de formularios y analíticas.",
+    "cspadelTitle": "Cs Padel",
+    "cspadelTeaser": "Sitio web principal y Landing de captación de leads para eventos deportivos.",
+    "natipsicopeTitle": "NatiPsicope",
+    "natipsicopeTeaser": "Landing page e inscripción a talleres especializados.",
+    "andesVeloTitle": "AndesVeloCycling",
+    "andesVeloTeaser": "Prototipo de plataforma de turismo deportivo, centraliza rutas, gastronomía y hotelería.",
+    "campusAutoSpaTitle": "Campus AutoSpa",
+    "campusAutoSpaTeaser": "Plataforma de pago, agendamiento y seguimiento de negocio de lavado de autos.",
     "repoOnGitHub": "Repositorio en GitHub",
     "placeholderTitle": "Proyecto en GitHub",
     "visitRepos": "Visita mis repositorios para ver más trabajos.",

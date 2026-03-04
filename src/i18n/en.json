@@ -29,6 +29,18 @@
     "projects": "projects"
   },
   "projects": {
+    "kuyuriyAdolescentesTitle": "Kuyuriy Adolescents",
+    "kuyuriyAdolescentesTeaser": "Event registration flow: Landing + registration form + payment gateway integration (Payphone) + automatic invoicing (Dora - Contifico).",
+    "kuyuriyCentroTitle": "Kuyuriy Center",
+    "kuyuriyCentroTeaser": "Psychopedagogy and psychology center. Institutional website with form and analytics integration.",
+    "cspadelTitle": "Cs Padel",
+    "cspadelTeaser": "Main website and lead generation landing page for sports events.",
+    "natipsicopeTitle": "NatiPsicope",
+    "natipsicopeTeaser": "Landing page and registration for specialized workshops.",
+    "andesVeloTitle": "AndesVeloCycling",
+    "andesVeloTeaser": "Sports tourism platform prototype, centralizing routes, gastronomy, and hospitality.",
+    "campusAutoSpaTitle": "Campus AutoSpa",
+    "campusAutoSpaTeaser": "Payment, scheduling, and business tracking platform for a car wash business.",
     "repoOnGitHub": "Repository on GitHub",
     "placeholderTitle": "GitHub project",
     "visitRepos": "Visit my repositories to see more work.",

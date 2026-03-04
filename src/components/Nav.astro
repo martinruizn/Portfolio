@@ -1,7 +1,6 @@
 ---
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/blog', label: 'Blog' },
 ];
 import ThemeToggle from './ThemeToggle.astro';
 import LangToggle from './LangToggle.astro';
@@ -122,9 +121,7 @@ import LangToggle from './LangToggle.astro';
           const key =
             href === '/'
               ? 'nav.home'
-              : href?.startsWith('/blog')
-                ? 'nav.blog'
-                : '';
+              : '';
           if (!key) return;
           a.setAttribute('aria-label', fn(key));
           const span = a.querySelector('span[aria-hidden]');

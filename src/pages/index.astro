@@ -2,85 +2,58 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-
-async function getRepoMeta(repoUrl: string): Promise<{
-  avatar?: string;
-  stars?: number;
-  name?: string;
-  description?: string;
-}> {
-  try {
-    const url = new URL(repoUrl);
-    if (url.hostname !== 'github.com') return {};
-    const segments = url.pathname.split('/').filter(Boolean);
-    const owner = segments[0];
-    const repo = (segments[1] || '').replace(/\.git$/, '');
-    if (!owner || !repo) return {};
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
-    const res = await fetch(apiUrl, {
-      headers: {
-        'User-Agent': 'astro-portfolio',
-        ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
-        Accept: 'application/vnd.github+json',
-      },
-    });
-    if (!res.ok) return {};
-    const data = await res.json();
-    return {
-      avatar: data?.owner?.avatar_url,
-      stars: data?.stargazers_count,
-      name: data?.name,
-      description: data?.description,
-    };
-  } catch {
-    return {};
+const projects = [
+  {
+    title: 'Kuyuriy Adolescentes',
+    teaser: 'Flujo de inscripción a un evento: Landing + form de inscripción + vinculación con pasarela de pagos (Payphone) + emisión automática de facturación (Dora - Contifico).',
+    titleKey: 'projects.kuyuriyAdolescentesTitle',
+    teaserKey: 'projects.kuyuriyAdolescentesTeaser',
+    href: 'https://adolescentes.kuyuriy.com',
+    tags: ['Astro 4.0', 'Vercel', 'Node.js', 'TypeScript', 'Jotform', 'Google Analytics', 'Brevo', 'API Payphone', 'API Dora']
+  },
+  {
+    title: 'Kuyuriy Centro',
+    teaser: 'Centro de psicopedagogía y psicología. Sitio web institucional con integración de formularios y analíticas.',
+    titleKey: 'projects.kuyuriyCentroTitle',
+    teaserKey: 'projects.kuyuriyCentroTeaser',
+    href: 'https://kuyuriy.com',
+    tags: ['WordPress', 'Divi', 'Jotform', 'Analytics']
+  },
+  {
+    title: 'Cs Padel',
+    teaser: 'Sitio web principal y Landing de captación de leads para eventos deportivos.',
+    titleKey: 'projects.cspadelTitle',
+    teaserKey: 'projects.cspadelTeaser',
+    href: 'https://miami.cspadel.com',
+    tags: ['WordPress', 'Elementor', 'Astro 4.0', 'Jotform', 'Vercel']
+  },
+  {
+    title: 'NatiPsicope',
+    teaser: 'Landing page e inscripción a talleres especializados.',
+    titleKey: 'projects.natipsicopeTitle',
+    teaserKey: 'projects.natipsicopeTeaser',
+    href: 'https://funciones-ejecutivas.natipsicope.com',
+    tags: ['ReactJS', 'Jotform']
+  },
+  {
+    title: 'AndesVeloCycling',
+    teaser: 'Prototipo de plataforma de turismo deportivo, centraliza rutas, gastronomía y hotelería.',
+    titleKey: 'projects.andesVeloTitle',
+    teaserKey: 'projects.andesVeloTeaser',
+    href: 'https://andes-velo-cycling.vercel.app',
+    tags: ['ReactJS', 'TypeScript', 'Node.js']
+  },
+  {
+    title: 'Campus AutoSpa',
+    teaser: 'Plataforma de pago, agendamiento y seguimiento de negocio de lavado de autos.',
+    titleKey: 'projects.campusAutoSpaTitle',
+    teaserKey: 'projects.campusAutoSpaTeaser',
+    href: 'https://campus-auto-spa.vercel.app',
+    tags: ['Astro 4.0', 'ReactJS', 'Supabase', 'Node.js']
   }
-}
-
-const curatedRepos = [
-  'https://github.com/martinruizn/sfb1.git',
-  'https://github.com/martinruizn/ClasesKruger.git',
-  'https://github.com/martinruizn/Portfolio.git',
-  'https://github.com/martinruizn/frontend-vercel-mr.git',
 ];
-
-const curated = await Promise.all(
-  curatedRepos.map(async (href) => {
-    const meta = await getRepoMeta(href);
-    const url = new URL(href);
-    const segments = url.pathname.split('/').filter(Boolean);
-    const repoName = (segments[1] || '').replace(/\.git$/, '');
-    return {
-      title: meta.name ?? repoName,
-      teaser: meta.description ?? 'Repositorio en GitHub',
-      teaserKey: !meta.description ? 'projects.repoOnGitHub' : undefined,
-      year: undefined,
-      tags: ['github'],
-      href,
-      avatar: meta.avatar,
-      stars: meta.stars,
-    };
-  }),
-);
-
-const padded = [
-  ...curated,
-  ...Array(Math.max(0, 4 - curated.length))
-    .fill(null)
-    .map(() => ({
-      title: 'Proyecto en GitHub',
-      teaser: 'Visita mis repositorios para ver más trabajos.',
-      titleKey: 'projects.placeholderTitle',
-      teaserKey: 'projects.visitRepos',
-      year: undefined,
-      tags: ['github'],
-      href: 'https://github.com/martinruizn?tab=repositories',
-      avatar: undefined,
-      stars: undefined,
-    })),
-].slice(0, 4);
 ---
+
 
 <BaseLayout
   title="Martin Ruiz — Portafolio"
@@ -117,12 +90,7 @@ const padded = [
           class="btn !text-white !shadow-lg hover:!shadow-xl dark:!text-neutral-300"
           >Ver en GitHub</a
         >
-        <a
-          id="cta-blog"
-          href="/blog"
-          class="btn-outline !text-neutral-900 !shadow-lg hover:!shadow-xl dark:!text-neutral-300"
-          >Blog</a
-        >
+
       </div>
     </div>
   </section>
@@ -146,17 +114,14 @@ const padded = [
     <h2 id="home-recent" class="mb-6 text-xl font-bold">Proyectos recientes</h2>
     <div class="grid gap-4 sm:grid-cols-2">
       {
-        padded.map((p) => (
+        projects.map((p) => (
           <ProjectCard
             title={p.title}
             teaser={p.teaser}
             titleKey={p.titleKey}
             teaserKey={p.teaserKey}
-            year={p.year}
-            tags={p.tags}
             href={p.href}
-            avatar={p.avatar}
-            stars={p.stars}
+            tags={p.tags}
           />
         ))
       }
@@ -221,12 +186,12 @@ const padded = [
     if (talkBody) talkBody.textContent = fn('home.talkBody');
     const gh = document.getElementById('cta-github');
     if (gh) gh.textContent = fn('cta.viewGithub');
-    const blog = document.getElementById('cta-blog');
-    if (blog) blog.textContent = fn('cta.blog');
+
     const write = document.getElementById('cta-write');
     if (write) write.textContent = fn('cta.writeMe');
     const li = document.getElementById('cta-linkedin');
     if (li) li.textContent = fn('cta.connectLinkedIn');
+
     document.querySelectorAll('[data-i18n-title]').forEach((el) => {
       const key = el.getAttribute('data-i18n-title');
       if (key) el.textContent = fn(key);
@@ -234,9 +199,6 @@ const padded = [
     document.querySelectorAll('[data-i18n-teaser]').forEach((el) => {
       const key = el.getAttribute('data-i18n-teaser');
       if (key) el.textContent = fn(key);
-    });
-    document.querySelectorAll('[data-avatar-alt]').forEach((el) => {
-      el.setAttribute('alt', fn('projects.repoAvatar'));
     });
   }
 
