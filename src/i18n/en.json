@@ -29,6 +29,10 @@
     "projects": "projects"
   },
   "projects": {
+    "menorcaTitle": "Menorca luxury padel retreat",
+    "menorcaTeaser": "Premium landing for the luxury padel retreat in Menorca. Elite coaching, 5-star accommodation, fine dining and all-inclusive Mediterranean experiences.",
+    "marketLabTitle": "MarketLab",
+    "marketLabTeaser": "Full-stack Yes/No prediction markets app with fake money. Buy shares, track positions and explore simulated markets.",
     "kuyuriyAdolescentesTitle": "Kuyuriy Adolescents",
     "kuyuriyAdolescentesTeaser": "Event registration flow: Landing + registration form + payment gateway integration (Payphone) + automatic invoicing (Dora - Contifico).",
     "kuyuriyCentroTitle": "Kuyuriy Center",
