@@ -4,15 +4,16 @@ Portafolio estático construido con Astro + Tailwind + MD/MDX + islas React opci
 
 ## Requisitos
 
-- Node 18+
-- npm o bun
+- Node 18+ (recomendado: 22 LTS)
+- pnpm (vía Corepack, incluido en Node)
 
 ## Scripts
 
 ```bash
-npm i && npm run dev
-npm run build && npm run preview
-# o
+corepack enable
+pnpm install && pnpm run dev
+pnpm run build && pnpm run preview
+# alternativa
 bun install && bun run dev
 bun run build && bun run preview
 ```

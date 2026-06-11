@@ -19,7 +19,7 @@ export function getT(lang: 'en' | 'es' = getLang()) {
     try {
       return path
         .split('.')
-        .reduce<any>((acc, key) => acc[key], dict) as string;
+        .reduce<unknown>((acc, key) => (acc as Record<string, unknown>)[key], dict) as string;
     } catch {
       return path;
     }
