@@ -1,5 +1,3 @@
-@import '@fontsource-variable/inter';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,10 +8,12 @@
 
 html {
   font-family:
-    'Inter Variable',
-    system-ui,
     -apple-system,
-    Segoe UI,
+    BlinkMacSystemFont,
+    'SF Pro Text',
+    'SF Pro Display',
+    system-ui,
+    'Segoe UI',
     Roboto,
     Ubuntu,
     Cantarell,
@@ -25,35 +25,153 @@ html {
 }
 
 body {
-  @apply bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 antialiased;
+  @apply bg-[#ecf4f1] text-neutral-800 antialiased dark:bg-[#0a100e] dark:text-neutral-100;
 }
-
-/* brand custom font removed for simplicity */
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-900;
+  @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-[#ecf4f1] dark:ring-offset-[#0a100e];
 }
 
 /* Containers */
 .container {
-  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
 
-/* Cards */
+/* Background depth layer */
+.bg-depth {
+  @apply pointer-events-none fixed inset-0 -z-10 overflow-hidden;
+}
+
+.bg-depth::before {
+  content: '';
+  @apply absolute inset-0;
+  background: linear-gradient(
+    165deg,
+    rgb(236 244 241) 0%,
+    rgb(248 250 249) 35%,
+    rgb(230 240 236) 70%,
+    rgb(220 235 228) 100%
+  );
+}
+
+.dark .bg-depth::before {
+  background: linear-gradient(
+    165deg,
+    rgb(8 14 12) 0%,
+    rgb(12 20 17) 40%,
+    rgb(10 16 14) 100%
+  );
+}
+
+.bg-depth-orb--1 {
+  @apply pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full blur-3xl;
+  background-color: rgb(35 83 71 / 0.18);
+}
+
+.dark .bg-depth-orb--1 {
+  background-color: rgb(35 83 71 / 0.22);
+}
+
+.bg-depth-orb--2 {
+  @apply pointer-events-none absolute -right-24 top-1/3 h-80 w-80 rounded-full blur-3xl;
+  background-color: rgb(35 83 71 / 0.08);
+}
+
+.dark .bg-depth-orb--2 {
+  background-color: rgb(35 83 71 / 0.12);
+}
+
+.bg-depth-orb--3 {
+  @apply pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 rounded-full blur-3xl;
+  background-color: rgb(35 83 71 / 0.12);
+}
+
+.dark .bg-depth-orb--3 {
+  background-color: rgb(35 83 71 / 0.15);
+}
+
+/* Glass surfaces */
+@supports (backdrop-filter: blur(1px)) {
+  .glass {
+    @apply rounded-glass border border-white/20 bg-white/70 shadow-glass backdrop-blur-glass
+           transition-all duration-300 ease-apple
+           dark:border-white/10 dark:bg-neutral-900/60 dark:shadow-glassDark;
+  }
+
+  .glass-subtle {
+    @apply rounded-glass border border-white/25 bg-white/55 shadow-glass backdrop-blur-glass
+           transition-all duration-500 ease-apple
+           dark:border-white/10 dark:bg-neutral-900/50 dark:shadow-glassDark;
+  }
+
+  .glass-specular {
+    @apply relative overflow-hidden;
+  }
+
+  .glass-specular::before {
+    content: '';
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/20;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    @apply rounded-glass border border-neutral-200/80 bg-white/95 shadow-glass
+           transition-all duration-300 ease-apple
+           dark:border-neutral-700 dark:bg-neutral-900/95 dark:shadow-glassDark;
+  }
+
+  .glass-subtle {
+    @apply rounded-glass border border-neutral-200/80 bg-white/95 shadow-glass
+           transition-all duration-500 ease-apple
+           dark:border-neutral-700 dark:bg-neutral-900/95 dark:shadow-glassDark;
+  }
+
+  .glass-specular {
+    @apply relative overflow-hidden;
+  }
+}
+
+/* Cards — glass by default */
 .card {
-  @apply rounded-xl border border-neutral-200/60 bg-white shadow-sm transition-shadow hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900;
+  @apply glass;
+}
+
+.card-hover {
+  @apply transition-transform duration-300 ease-apple hover:scale-[1.02]
+         hover:shadow-glassHover dark:hover:shadow-glassHoverDark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-hover {
+    @apply hover:scale-100;
+  }
 }
 
 /* Buttons */
 .btn {
-  @apply inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 font-semibold text-white shadow-sm transition hover:brightness-110 focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
-}
-.btn-outline {
-  @apply inline-flex items-center gap-2 rounded-lg border border-brand px-4 py-2 font-semibold text-brand transition hover:bg-brand/10 focus-visible:ring-2 focus-visible:ring-brand disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply inline-flex items-center gap-2 rounded-full bg-gradient-to-b from-brand to-brand/90 px-6 py-2.5
+         font-semibold text-white shadow-glass transition-all duration-300 ease-apple
+         hover:brightness-110 hover:shadow-glassHover
+         focus-visible:ring-2 focus-visible:ring-brand
+         disabled:cursor-not-allowed disabled:opacity-50;
 }
 
-/* Compact button modifier for smaller controls like theme toggle */
+.btn-outline {
+  @apply inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/40 px-6 py-2.5
+         font-semibold text-neutral-800 shadow-sm backdrop-blur-sm transition-all duration-300 ease-apple
+         hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-brand
+         disabled:cursor-not-allowed disabled:opacity-50
+         dark:border-white/15 dark:bg-white/10 dark:text-neutral-100 dark:hover:bg-white/15;
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .btn-outline {
+    @apply bg-neutral-100 dark:bg-neutral-800;
+  }
+}
+
 .btn-compact {
   @apply px-2 py-1 text-sm;
 }
@@ -63,17 +181,35 @@ body {
   @apply prose-neutral dark:prose-invert max-w-none;
 }
 
-/* (tilt animation removed for cleanliness) */
+.prose-glass {
+  @apply prose;
+}
+
+.prose-glass :where(pre):not(:where([class~='not-prose'] *)) {
+  @apply rounded-glass border border-white/20 bg-white/50 backdrop-blur-sm
+         dark:border-white/10 dark:bg-neutral-900/50;
+}
+
+.prose-glass :where(code):not(:where([class~='not-prose'] *)) {
+  @apply rounded-md bg-white/50 px-1.5 py-0.5 dark:bg-neutral-800/80;
+}
+
+.prose-glass :where(h1, h2, h3):not(:where([class~='not-prose'] *)) {
+  @apply font-semibold tracking-tight;
+}
 
 /* Page transition helpers */
-@keyframes fade-in {
+@keyframes fade-in-up {
   from {
     opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
+
 @keyframes fade-out {
   from {
     opacity: 1;
@@ -82,12 +218,15 @@ body {
     opacity: 0;
   }
 }
+
 .page-enter {
-  animation: fade-in 600ms ease both;
+  animation: fade-in-up 600ms ease-apple both;
 }
+
 .page-exit {
-  animation: fade-out 600ms ease both;
+  animation: fade-out 600ms ease-apple both;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .page-enter,
   .page-exit {
@@ -95,4 +234,7 @@ body {
   }
 }
 
-/* (nav highlight removed) */
+/* Toggle group container */
+.toggle-group {
+  @apply glass-subtle flex items-center gap-1 rounded-full p-1;
+}
