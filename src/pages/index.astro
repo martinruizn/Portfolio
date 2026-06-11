@@ -78,7 +78,7 @@ const projects = [
   <section class="pt-10 pb-16">
     <div class="text-center">
       <div
-        class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full ring-2 ring-brand ring-offset-2 ring-offset-white dark:ring-offset-neutral-950 shadow-[0_16px_24px_-8px_rgba(0,0,0,0.45)]"
+        class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full shadow-glass ring-2 ring-white/30 ring-offset-2 ring-offset-[#ecf4f1] dark:ring-white/20 dark:ring-offset-[#0a100e]"
       >
         <img
           src="/avatar.jpg"
@@ -90,7 +90,7 @@ const projects = [
           loading="eager"
         />
       </div>
-      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
         Martin Ruiz
       </h1>
       <p
@@ -103,7 +103,7 @@ const projects = [
         <a
           id="cta-github"
           href="https://github.com/martinruizn?tab=repositories"
-          class="btn !text-white !shadow-lg hover:!shadow-xl dark:!text-neutral-300"
+          class="btn"
           >Ver en GitHub</a
         >
 
@@ -111,8 +111,8 @@ const projects = [
     </div>
   </section>
   <section class="mt-2">
-    <div class="card p-8 !shadow-lg hover:!shadow-xl">
-      <div class="prose">
+    <div class="glass glass-specular rounded-glassLg p-8 sm:p-10">
+      <div class="prose prose-glass">
         <h2 id="about-section-title">Sobre mí</h2>
         <p id="about-intro">
           Hola, soy Martín. Pasé casi 10 años en el mundo comercial hasta que
@@ -127,7 +127,7 @@ const projects = [
     </div>
   </section>
   <section class="mt-16">
-    <h2 id="home-recent" class="mb-6 text-xl font-bold">Proyectos recientes</h2>
+    <h2 id="home-recent" class="mb-6 text-xl font-semibold tracking-tight">Proyectos recientes</h2>
     <div class="grid gap-4 sm:grid-cols-2">
       {
         projects.map((p) => (
@@ -144,12 +144,12 @@ const projects = [
     </div>
   </section>
   <section class="mt-16">
-    <div class="card p-8 !shadow-lg hover:!shadow-xl">
+    <div class="glass glass-specular rounded-glassLg p-8 sm:p-10">
       <div
         class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"
       >
         <div>
-          <h2 id="home-talk-title" class="text-xl font-bold">¿Hablamos?</h2>
+          <h2 id="home-talk-title" class="text-xl font-semibold tracking-tight">¿Hablamos?</h2>
           <p
             id="home-talk-body"
             class="mt-1 text-neutral-600 dark:text-neutral-300"
@@ -160,12 +160,12 @@ const projects = [
         <div class="flex gap-3">
           <a
             id="cta-write"
-            class="btn !text-white dark:!text-neutral-300"
+            class="btn"
             href="mailto:martinruiz91n@gmail.com">Escríbeme</a
           >
           <a
             id="cta-linkedin"
-            class="btn-outline !text-neutral-900 dark:!text-neutral-300"
+            class="btn-outline"
             href="https://www.linkedin.com/in/martin-ruizn/"
             >Conectemos en LinkedIn</a
           >
