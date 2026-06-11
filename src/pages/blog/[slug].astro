@@ -16,20 +16,22 @@ const { Content } = await render(post);
   title={post.data.title}
   description={post.data.description ?? post.data.title}
 >
-  <article class="prose">
-    <h1>{post.data.title}</h1>
-    {
-      post.data.pubDate && (
-        <p>
-          <small>
-            <span id="post-date" data-pubdate={post.data.pubDate}>
-              {new Date(post.data.pubDate).toLocaleDateString('es-ES')}
-            </span>
-          </small>
-        </p>
-      )
-    }
-    <Content />
+  <article class="glass glass-specular rounded-glassLg p-8 sm:p-10">
+    <div class="prose prose-glass">
+      <h1>{post.data.title}</h1>
+      {
+        post.data.pubDate && (
+          <p>
+            <small>
+              <span id="post-date" data-pubdate={post.data.pubDate}>
+                {new Date(post.data.pubDate).toLocaleDateString('es-ES')}
+              </span>
+            </small>
+          </p>
+        )
+      }
+      <Content />
+    </div>
   </article>
 </BaseLayout>
 

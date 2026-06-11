@@ -10,21 +10,30 @@ const label = 'Toggle theme';
 >
   <span
     data-switch
-    class="relative inline-flex h-5 w-10 items-center rounded-full transition-colors bg-neutral-300 dark:bg-neutral-700 data-[state=on]:bg-brand"
+    class="relative inline-flex h-6 w-11 items-center rounded-full border border-white/20 bg-white/30 backdrop-blur-sm transition-all duration-300 ease-apple dark:border-white/10 dark:bg-white/10 data-[state=on]:bg-brand/80 data-[state=on]:border-brand/50"
   >
     <span
       data-icon="sun"
-      class="pointer-events-none absolute left-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-40 data-[active=true]:opacity-100 filter brightness-0 dark:invert"
-      >☀️</span
+      class="pointer-events-none absolute left-1.5 top-1/2 -translate-y-1/2 opacity-40 transition-opacity data-[active=true]:opacity-100"
+      aria-hidden="true"
     >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+      </svg>
+    </span>
     <span
       data-icon="moon"
-      class="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[10px] leading-none opacity-40 data-[active=true]:opacity-100 filter brightness-0 dark:invert"
-      >🌙</span
+      class="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 opacity-40 transition-opacity data-[active=true]:opacity-100"
+      aria-hidden="true"
     >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-300">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+      </svg>
+    </span>
     <span
       data-thumb
-      class="relative z-[1] ml-0.5 inline-block h-4 w-4 rounded-full bg-white shadow ring-1 ring-black/10 transition-transform translate-x-0 data-[state=on]:translate-x-5"
+      class="relative z-[1] ml-0.5 inline-block h-5 w-5 rounded-full bg-white shadow-md ring-1 ring-black/5 transition-transform duration-300 ease-apple translate-x-0 data-[state=on]:translate-x-5"
     ></span>
   </span>
 </button>
@@ -55,7 +64,6 @@ const label = 'Toggle theme';
     updateUI();
   }
 
-  // Initialize from storage if present
   try {
     const stored = localStorage.getItem('theme');
     if (stored === 'dark' || stored === 'light') {
@@ -64,7 +72,6 @@ const label = 'Toggle theme';
   } catch {}
   updateUI();
 
-  // Click handler
   btn?.addEventListener('click', () => {
     const next = root.classList.contains('dark') ? 'light' : 'dark';
     applyTheme(next);
