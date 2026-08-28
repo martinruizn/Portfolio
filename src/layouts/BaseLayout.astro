@@ -5,8 +5,9 @@ import en from '../i18n/en.json';
 import es from '../i18n/es.json';
 
 const {
-  title = 'Martin Ruiz — Portafolio',
-  description = 'Portafolio de Martin Ruiz',
+  title = 'Martin Ruiz — Forward Deployed Engineer',
+  description =
+    'Forward Deployed Engineer en Citus.dev. Producto, flujos con IA y comunidad. Organizador de GDG Quito, basado en Quito, Ecuador.',
   og = {
     title,
     description,
@@ -30,8 +31,24 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Martin Ruiz',
+  jobTitle: 'Forward Deployed Engineer',
+  description:
+    'Forward Deployed Engineer en Citus.dev. Producto, flujos con IA y comunidad. Organizador de GDG Quito.',
   url: 'https://martinruiz.dev',
-  sameAs: ['https://www.linkedin.com/in/martin-ruizn/'],
+  image: `${Astro.site?.origin ?? 'https://martinruiz.dev'}/about/workspace.jpg`,
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Citus.dev',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Quito',
+    addressCountry: 'EC',
+  },
+  sameAs: [
+    'https://www.linkedin.com/in/martin-ruizn/',
+    'https://github.com/martinruizn',
+  ],
 };
 ---
 

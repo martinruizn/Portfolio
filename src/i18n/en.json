@@ -1,8 +1,14 @@
 {
-  "nav": { "home": "Home", "blog": "Blog" },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "speaking": "Speaking",
+    "projects": "Projects",
+    "blog": "Blog"
+  },
   "meta": {
-    "homeTitle": "Martin Ruiz — Portfolio",
-    "homeDescription": "Martin Ruiz's portfolio"
+    "homeTitle": "Martin Ruiz — Forward Deployed Engineer",
+    "homeDescription": "Forward Deployed Engineer at Citus.dev. Product, AI-powered workflows, and community. GDG Quito organizer, based in Quito, Ecuador."
   },
   "cta": {
     "viewGithub": "View on GitHub",
@@ -10,21 +16,70 @@
     "writeMe": "Write me",
     "connectLinkedIn": "Connect on LinkedIn"
   },
-  "hero": { "role": "Fullstack Developer" },
+  "hero": {
+    "role": "Forward Deployed Engineer · Citus.dev",
+    "tagline": "Product, AI-powered workflows, and community · GDG Quito organizer",
+    "location": "Quito, Ecuador"
+  },
   "home": {
-    "talkTitle": "Shall we talk?",
-    "talkBody": "Do you have an idea, project or proposal? Let's make it happen.",
+    "talkTitle": "Shall we build something?",
+    "talkBody": "Product, a talk, or a community space. Let's make it happen.",
     "recentProjects": "Recent projects"
   },
   "about": {
     "title": "This section is now Blog",
     "sectionTitle": "About me",
     "intro": "Hello, I'm Martín. I spent almost 10 years in the business world until I discovered that code was my thing too. Today I focus on software development, mixing my business experience with the creativity of programming and implementing AI. I enjoy working with web technologies like JavaScript, React, Node.js, but above all I'm passionate about learning, building and sharing projects that really add value to people.",
+    "p1": "My approach joins technical precision with a human commercial lens. I turn ideas into digital platforms by iterating and learning every day. Beyond the code, I own the project lifecycle so technology actually drives business goals and real impact.",
+    "p2": "I spent almost ten years in business — including as business-unit manager at PalFarma — until code became mine too. As an independent developer and later at Menta, I built technology for health professionals and clinics, bridging user needs and the engineering team. Today, as Forward Deployed Engineer at Citus.dev, I keep product, engineering, and customers on the same board.",
+    "p3": "I also build community: I'm a GDG Quito organizer, a speaker at Cursor workshops and e-commerce and AI talks, and I care about sharing what works when you iterate in public. People first: products people actually love.",
+    "photoAlt": "Martín Ruiz at his work desk",
+    "experienceTitle": "Path",
+    "current": "Current",
     "p1a": "I replaced \"About me\" with",
     "p1b": ", where I will publish my writings. Update your bookmarks.",
     "p2a": "You can also see my",
     "p2b": "or write to",
     "projects": "projects"
+  },
+  "experience": {
+    "citusRole": "Forward Deployed Engineer",
+    "citusOrg": "Citus.dev",
+    "gdgRole": "Organizer",
+    "gdgOrg": "GDG Quito",
+    "mentaRole": "Software developer",
+    "mentaOrg": "Menta",
+    "freelanceRole": "Independent developer",
+    "freelanceOrg": "Freelance",
+    "palfarmaRole": "Business unit manager",
+    "palfarmaOrg": "PalFarma"
+  },
+  "speaking": {
+    "sectionTitle": "On stage",
+    "sectionLead": "Talks, workshops, and tech community: product, AI, and e-commerce, in Ecuador and beyond.",
+    "prev": "Previous talk",
+    "next": "Next talk",
+    "slide": "Go to talk",
+    "ceutecEvent": "CEUTEC · International conference",
+    "ceutecTitle": "Let's build an e-commerce that crosses borders",
+    "ceutecBody": "Talk for the University Technician in Web Application Development program. How to build digital commerce that scales beyond a local market.",
+    "ceutecMeta": "Aug 25, 2026 · Zoom",
+    "workshopEvent": "Cursor Workshop · Tech Ecuador Community",
+    "workshopTitle": "The human bug",
+    "workshopBody": "We become bilingual with computers, but unskilled with humans. A talk about judgment, community, and building with AI without losing the human side.",
+    "workshopMeta": "Ecuador",
+    "santoEvent": "Cursor Meetup · Santo Domingo",
+    "santoTitle": "Cursor, Medusa, and Next.js on stage",
+    "santoBody": "Wiring Cursor with Medusa and Next.js to ship an educational storefront live, alongside the DevLokos community.",
+    "santoMeta": "Jul 5, 2026 · Santo Domingo, Ecuador",
+    "medusaEvent": "Medusa JS · Auditorium",
+    "medusaTitle": "Open-source, headless e-commerce",
+    "medusaBody": "A headless commerce demo with Medusa: from architecture to a real checkout, in front of students and developers.",
+    "medusaMeta": "Ecuador",
+    "deviathonEvent": "DevIAthon 2026 · UPEC",
+    "deviathonTitle": "Live AI, university community",
+    "deviathonBody": "On stage at UPEC's DevIAthon 2026: artificial intelligence, product, and the tech ecosystem taking shape in Ecuador.",
+    "deviathonMeta": "2026 · UPEC"
   },
   "projects": {
     "menorcaTitle": "Menorca luxury padel retreat",

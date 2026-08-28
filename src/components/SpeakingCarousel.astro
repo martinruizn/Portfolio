@@ -1,0 +1,309 @@
+---
+const talks = [
+  {
+    id: 'ceutec',
+    image: '/speaking/ceutec-ecommerce.jpg',
+    fit: 'contain',
+    eventKey: 'speaking.ceutecEvent',
+    titleKey: 'speaking.ceutecTitle',
+    bodyKey: 'speaking.ceutecBody',
+    metaKey: 'speaking.ceutecMeta',
+    event: 'CEUTEC · Conferencia internacional',
+    title: 'Armemos un e-commerce que cruza fronteras',
+    body: 'Charla para el Técnico Universitario en Desarrollo de Aplicaciones Web. Cómo construir comercio digital que escala más allá de un mercado local.',
+    meta: '25 ago 2026 · Zoom',
+  },
+  {
+    id: 'workshop',
+    image: '/speaking/cursor-workshop-human-bug.jpg',
+    eventKey: 'speaking.workshopEvent',
+    titleKey: 'speaking.workshopTitle',
+    bodyKey: 'speaking.workshopBody',
+    metaKey: 'speaking.workshopMeta',
+    event: 'Cursor Workshop · Tech Ecuador Community',
+    title: 'The human bug',
+    body: 'Nos volvemos bilingües con las computadoras, pero torpes con las personas. Una charla sobre criterio, comunidad y construir con IA sin perder el lado humano.',
+    meta: 'Ecuador',
+  },
+  {
+    id: 'santo',
+    image: '/speaking/cursor-santo-domingo.jpg',
+    eventKey: 'speaking.santoEvent',
+    titleKey: 'speaking.santoTitle',
+    bodyKey: 'speaking.santoBody',
+    metaKey: 'speaking.santoMeta',
+    event: 'Cursor Meetup · Santo Domingo',
+    title: 'Cursor, Medusa y Next.js en el escenario',
+    body: 'Integración de Cursor con Medusa y Next.js para armar una tienda educativa en vivo, junto a la comunidad DevLokos.',
+    meta: '5 jul 2026 · Santo Domingo, Ecuador',
+  },
+  {
+    id: 'medusa',
+    image: '/speaking/medusa-ecommerce.jpg',
+    eventKey: 'speaking.medusaEvent',
+    titleKey: 'speaking.medusaTitle',
+    bodyKey: 'speaking.medusaBody',
+    metaKey: 'speaking.medusaMeta',
+    event: 'Medusa JS · Auditorio',
+    title: 'E-commerce open source y headless',
+    body: 'Demo de comercio headless con Medusa: de la arquitectura a un checkout real, frente a estudiantes y developers.',
+    meta: 'Ecuador',
+  },
+  {
+    id: 'deviathon',
+    image: '/speaking/deviathon-upec.jpg',
+    eventKey: 'speaking.deviathonEvent',
+    titleKey: 'speaking.deviathonTitle',
+    bodyKey: 'speaking.deviathonBody',
+    metaKey: 'speaking.deviathonMeta',
+    event: 'DevIAthon 2026 · UPEC',
+    title: 'IA en vivo, comunidad universitaria',
+    body: 'Escenario en el DevIAthon 2026 de la UPEC: inteligencia artificial, producto y el ecosistema tech que se está formando en Ecuador.',
+    meta: '2026 · UPEC',
+  },
+];
+---
+
+<section id="speaking" class="mt-16 scroll-mt-24" aria-labelledby="speaking-title">
+  <div class="mb-6 max-w-2xl">
+    <h2 id="speaking-title" data-i18n="speaking.sectionTitle" class="text-xl font-semibold tracking-tight">
+      En el escenario
+    </h2>
+    <p
+      data-i18n="speaking.sectionLead"
+      class="mt-2 text-neutral-700 dark:text-neutral-200"
+    >
+      Charlas, workshops y comunidad tech: producto, IA y e-commerce, en Ecuador y más allá.
+    </p>
+  </div>
+
+  <div
+    class="glass glass-specular overflow-hidden !p-0"
+    data-carousel
+    role="region"
+    aria-roledescription="carousel"
+    aria-labelledby="speaking-title"
+  >
+    <div class="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+      {
+        talks.map((talk, index) => (
+          <article
+            data-slide
+            data-index={index}
+            class:list={[
+              'absolute inset-0 transition-opacity duration-500 ease-apple',
+              index === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none',
+            ]}
+            aria-hidden={index === 0 ? 'false' : 'true'}
+          >
+            <img
+              src={talk.image}
+              alt=""
+              class:list={[
+                'h-full w-full object-center',
+                talk.fit === 'contain' ? 'object-contain bg-[#3a0a0a]' : 'object-cover',
+              ]}
+              loading={index === 0 ? 'eager' : 'lazy'}
+            />
+            <div
+              class="pointer-events-none absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-neutral-950/25 to-transparent"
+              aria-hidden="true"
+            />
+            <div class="absolute inset-x-0 bottom-0 p-5 sm:p-8">
+              <p
+                data-i18n={talk.eventKey}
+                class="text-xs font-semibold uppercase tracking-wider text-white/80"
+              >
+                {talk.event}
+              </p>
+              <h3
+                data-i18n={talk.titleKey}
+                class="mt-1 text-lg font-semibold tracking-tight text-white sm:text-2xl"
+              >
+                {talk.title}
+              </h3>
+              <p
+                data-i18n={talk.bodyKey}
+                class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base"
+              >
+                {talk.body}
+              </p>
+              <p
+                data-i18n={talk.metaKey}
+                class="mt-3 text-xs text-white/70"
+              >
+                {talk.meta}
+              </p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="flex items-center justify-between gap-3 border-t border-neutral-900/10 px-4 py-3 dark:border-white/15">
+      <button
+        type="button"
+        data-carousel-prev
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-900/15 bg-white/80 text-neutral-800 transition-colors hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20"
+        aria-label="Charla anterior"
+        data-i18n-aria="speaking.prev"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-2" data-carousel-dots role="tablist" aria-label="Charlas">
+        {
+          talks.map((talk, index) => (
+            <button
+              type="button"
+              data-dot
+              data-index={index}
+              class:list={[
+                'h-2.5 rounded-full transition-all duration-300 ease-apple',
+                index === 0 ? 'w-6 bg-brand' : 'w-2.5 bg-neutral-400/70 dark:bg-white/35',
+              ]}
+              aria-label={`Ir a la charla ${index + 1}`}
+              aria-current={index === 0 ? 'true' : undefined}
+            />
+          ))
+        }
+      </div>
+
+      <button
+        type="button"
+        data-carousel-next
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-900/15 bg-white/80 text-neutral-800 transition-colors hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20"
+        aria-label="Charla siguiente"
+        data-i18n-aria="speaking.next"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  // @ts-nocheck
+  const root = document.querySelector('[data-carousel]');
+  if (root) {
+    const slides = Array.from(root.querySelectorAll('[data-slide]'));
+    const dots = Array.from(root.querySelectorAll('[data-dot]'));
+    const prev = root.querySelector('[data-carousel-prev]');
+    const next = root.querySelector('[data-carousel-next]');
+    const total = slides.length;
+    let index = 0;
+    let timer = null;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
+
+    function applyAria() {
+      const fn = t();
+      if (prev) prev.setAttribute('aria-label', fn('speaking.prev'));
+      if (next) next.setAttribute('aria-label', fn('speaking.next'));
+      dots.forEach((dot, i) => {
+        dot.setAttribute('aria-label', `${fn('speaking.slide')} ${i + 1}`);
+      });
+    }
+
+    function render() {
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        slide.classList.toggle('opacity-100', active);
+        slide.classList.toggle('opacity-0', !active);
+        slide.classList.toggle('pointer-events-none', !active);
+        slide.setAttribute('aria-hidden', String(!active));
+      });
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle('w-6', active);
+        dot.classList.toggle('bg-brand', active);
+        dot.classList.toggle('w-2.5', !active);
+        dot.classList.toggle('bg-neutral-400/70', !active);
+        dot.classList.toggle('dark:bg-white/35', !active);
+        if (active) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+    }
+
+    function go(nextIndex) {
+      index = (nextIndex + total) % total;
+      render();
+    }
+
+    function start() {
+      if (reduced || total < 2) return;
+      stop();
+      timer = window.setInterval(() => go(index + 1), 6500);
+    }
+
+    function stop() {
+      if (timer) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    prev?.addEventListener('click', () => {
+      go(index - 1);
+      start();
+    });
+    next?.addEventListener('click', () => {
+      go(index + 1);
+      start();
+    });
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        go(Number(dot.getAttribute('data-index')));
+        start();
+      });
+    });
+
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        go(index - 1);
+        start();
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        go(index + 1);
+        start();
+      }
+    });
+    root.setAttribute('tabindex', '0');
+
+    let touchX = 0;
+    root.addEventListener(
+      'touchstart',
+      (event) => {
+        touchX = event.changedTouches[0]?.clientX ?? 0;
+      },
+      { passive: true }
+    );
+    root.addEventListener(
+      'touchend',
+      (event) => {
+        const endX = event.changedTouches[0]?.clientX ?? 0;
+        const delta = endX - touchX;
+        if (Math.abs(delta) < 40) return;
+        go(delta > 0 ? index - 1 : index + 1);
+        start();
+      },
+      { passive: true }
+    );
+
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+
+    applyAria();
+    window.addEventListener('lang-change', applyAria);
+    start();
+  }
+</script>

@@ -57,7 +57,7 @@ const previewUrl = image || (isExternal ? `https://s.wordpress.com/mshots/v1/${e
         </h3>
         {
           (teaser || teaserKey) && (
-            <p class="mt-2 line-clamp-2 text-sm text-neutral-600 dark:text-neutral-300">
+            <p class="mt-2 line-clamp-2 text-sm text-neutral-700 dark:text-neutral-200">
               {teaserKey ? (
                 <span data-i18n-teaser={teaserKey}>{teaser}</span>
               ) : (
@@ -70,7 +70,7 @@ const previewUrl = image || (isExternal ? `https://s.wordpress.com/mshots/v1/${e
           tags.length > 0 && (
             <ul class="mt-4 flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
               {tags.map((t) => (
-                <li class="rounded-full border border-white/20 bg-white/40 px-2.5 py-0.5 backdrop-blur-sm dark:border-white/10 dark:bg-white/10">
+                <li class="rounded-full border border-neutral-900/15 bg-white/80 px-2.5 py-0.5 text-neutral-700 backdrop-blur-sm dark:border-white/20 dark:bg-white/10 dark:text-neutral-200">
                   {t}
                 </li>
               ))}

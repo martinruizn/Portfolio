@@ -22,15 +22,17 @@ html {
     'Noto Sans',
     'Apple Color Emoji',
     'Segoe UI Emoji';
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
-  @apply bg-[#ecf4f1] text-neutral-800 antialiased dark:bg-[#0a100e] dark:text-neutral-100;
+  @apply bg-[#dce8e3] text-neutral-900 antialiased dark:bg-[#121917] dark:text-neutral-50;
 }
 
 /* Focus visible for accessibility */
 *:focus-visible {
-  @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-[#ecf4f1] dark:ring-offset-[#0a100e];
+  @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-[#dce8e3] dark:ring-offset-[#121917];
 }
 
 /* Containers */
@@ -48,61 +50,61 @@ body {
   @apply absolute inset-0;
   background: linear-gradient(
     165deg,
-    rgb(236 244 241) 0%,
-    rgb(248 250 249) 35%,
-    rgb(230 240 236) 70%,
-    rgb(220 235 228) 100%
+    rgb(210 224 218) 0%,
+    rgb(232 240 236) 35%,
+    rgb(214 226 221) 70%,
+    rgb(196 214 207) 100%
   );
 }
 
 .dark .bg-depth::before {
   background: linear-gradient(
     165deg,
-    rgb(8 14 12) 0%,
-    rgb(12 20 17) 40%,
-    rgb(10 16 14) 100%
+    rgb(16 23 21) 0%,
+    rgb(22 32 28) 40%,
+    rgb(18 26 23) 100%
   );
 }
 
 .bg-depth-orb--1 {
   @apply pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full blur-3xl;
-  background-color: rgb(35 83 71 / 0.18);
+  background-color: rgb(35 83 71 / 0.22);
 }
 
 .dark .bg-depth-orb--1 {
-  background-color: rgb(35 83 71 / 0.22);
+  background-color: rgb(35 83 71 / 0.32);
 }
 
 .bg-depth-orb--2 {
   @apply pointer-events-none absolute -right-24 top-1/3 h-80 w-80 rounded-full blur-3xl;
-  background-color: rgb(35 83 71 / 0.08);
+  background-color: rgb(35 83 71 / 0.12);
 }
 
 .dark .bg-depth-orb--2 {
-  background-color: rgb(35 83 71 / 0.12);
+  background-color: rgb(35 83 71 / 0.2);
 }
 
 .bg-depth-orb--3 {
   @apply pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 rounded-full blur-3xl;
-  background-color: rgb(35 83 71 / 0.12);
+  background-color: rgb(35 83 71 / 0.16);
 }
 
 .dark .bg-depth-orb--3 {
-  background-color: rgb(35 83 71 / 0.15);
+  background-color: rgb(35 83 71 / 0.24);
 }
 
 /* Glass surfaces */
 @supports (backdrop-filter: blur(1px)) {
   .glass {
-    @apply rounded-glass border border-white/20 bg-white/70 shadow-glass backdrop-blur-glass
+    @apply rounded-glass border border-neutral-900/10 bg-white/[0.88] shadow-glass backdrop-blur-glass
            transition-all duration-300 ease-apple
-           dark:border-white/10 dark:bg-neutral-900/60 dark:shadow-glassDark;
+           dark:border-white/20 dark:bg-white/15 dark:shadow-glassDark;
   }
 
   .glass-subtle {
-    @apply rounded-glass border border-white/25 bg-white/55 shadow-glass backdrop-blur-glass
+    @apply rounded-glass border border-neutral-900/10 bg-white/80 shadow-glass backdrop-blur-glass
            transition-all duration-500 ease-apple
-           dark:border-white/10 dark:bg-neutral-900/50 dark:shadow-glassDark;
+           dark:border-white/15 dark:bg-white/10 dark:shadow-glassDark;
   }
 
   .glass-specular {
@@ -111,21 +113,21 @@ body {
 
   .glass-specular::before {
     content: '';
-    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/20;
+    @apply pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neutral-900/20 to-transparent dark:via-white/40;
   }
 }
 
 @supports not (backdrop-filter: blur(1px)) {
   .glass {
-    @apply rounded-glass border border-neutral-200/80 bg-white/95 shadow-glass
+    @apply rounded-glass border border-neutral-300 bg-white shadow-glass
            transition-all duration-300 ease-apple
-           dark:border-neutral-700 dark:bg-neutral-900/95 dark:shadow-glassDark;
+           dark:border-white/20 dark:bg-neutral-800 dark:shadow-glassDark;
   }
 
   .glass-subtle {
-    @apply rounded-glass border border-neutral-200/80 bg-white/95 shadow-glass
+    @apply rounded-glass border border-neutral-300 bg-white shadow-glass
            transition-all duration-500 ease-apple
-           dark:border-neutral-700 dark:bg-neutral-900/95 dark:shadow-glassDark;
+           dark:border-white/20 dark:bg-neutral-800 dark:shadow-glassDark;
   }
 
   .glass-specular {
@@ -159,11 +161,11 @@ body {
 }
 
 .btn-outline {
-  @apply inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/40 px-6 py-2.5
-         font-semibold text-neutral-800 shadow-sm backdrop-blur-sm transition-all duration-300 ease-apple
-         hover:bg-white/60 focus-visible:ring-2 focus-visible:ring-brand
+  @apply inline-flex items-center gap-2 rounded-full border border-neutral-900/20 bg-white/70 px-6 py-2.5
+         font-semibold text-neutral-900 shadow-sm backdrop-blur-sm transition-all duration-300 ease-apple
+         hover:bg-white/90 focus-visible:ring-2 focus-visible:ring-brand
          disabled:cursor-not-allowed disabled:opacity-50
-         dark:border-white/15 dark:bg-white/10 dark:text-neutral-100 dark:hover:bg-white/15;
+         dark:border-white/40 dark:bg-white/20 dark:text-white dark:hover:bg-white/30;
 }
 
 @supports not (backdrop-filter: blur(1px)) {
@@ -186,16 +188,20 @@ body {
 }
 
 .prose-glass :where(pre):not(:where([class~='not-prose'] *)) {
-  @apply rounded-glass border border-white/20 bg-white/50 backdrop-blur-sm
-         dark:border-white/10 dark:bg-neutral-900/50;
+  @apply rounded-glass border border-neutral-900/10 bg-white/70 backdrop-blur-sm
+         dark:border-white/15 dark:bg-white/10;
 }
 
 .prose-glass :where(code):not(:where([class~='not-prose'] *)) {
-  @apply rounded-md bg-white/50 px-1.5 py-0.5 dark:bg-neutral-800/80;
+  @apply rounded-md bg-neutral-900/5 px-1.5 py-0.5 dark:bg-white/15;
 }
 
 .prose-glass :where(h1, h2, h3):not(:where([class~='not-prose'] *)) {
-  @apply font-semibold tracking-tight;
+  @apply font-semibold tracking-tight text-neutral-900 dark:text-neutral-50;
+}
+
+.prose-glass :where(p):not(:where([class~='not-prose'] *)) {
+  @apply text-neutral-700 dark:text-neutral-200;
 }
 
 /* Page transition helpers */
@@ -228,6 +234,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .page-enter,
   .page-exit {
     animation: none;
