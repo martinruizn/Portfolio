@@ -8,6 +8,7 @@ import {
   localeMeta,
   useTranslations,
 } from '../i18n';
+import { buildJsonLd } from '../lib/jsonld';
 
 const { lang = 'es' } = Astro.props as { lang?: Lang };
 
@@ -21,56 +22,7 @@ const description = t('meta.homeDescription');
 const ogImage = absoluteUrl('/og-default.jpg', site.href);
 const ogLocale = localeMeta[lang].og;
 const ogLocaleAlternate = localeMeta[lang].ogAlternate;
-const inLanguage = localeMeta[lang].bcp47;
-const personId = absoluteUrl('#person', site.href);
-const websiteId = absoluteUrl('#website', site.href);
-const pageId = `${canonical}#webpage`;
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Person',
-      '@id': personId,
-      name: 'Martin Ruiz',
-      jobTitle: 'Forward Deployed Engineer',
-      description,
-      url: alternateEs,
-      image: absoluteUrl('/about/workspace.jpg', site.href),
-      worksFor: {
-        '@type': 'Organization',
-        name: 'Citus.dev',
-      },
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Quito',
-        addressCountry: 'EC',
-      },
-      sameAs: [
-        'https://www.linkedin.com/in/martin-ruizn/',
-        'https://github.com/martinruizn',
-      ],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': websiteId,
-      url: alternateEs,
-      name: 'Martin Ruiz',
-      inLanguage: ['es-EC', 'en-US'],
-      publisher: { '@id': personId },
-    },
-    {
-      '@type': 'ProfilePage',
-      '@id': pageId,
-      url: canonical,
-      name: title,
-      description,
-      inLanguage,
-      isPartOf: { '@id': websiteId },
-      about: { '@id': personId },
-      mainEntity: { '@id': personId },
-    },
-  ],
-};
+const jsonLd = buildJsonLd({ lang, site: site.href });
 ---
 
 <html lang={lang}>

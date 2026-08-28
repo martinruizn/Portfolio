@@ -1,61 +1,11 @@
 ---
 import ProjectCard from './ProjectCard.astro';
 import SpeakingCarousel from './SpeakingCarousel.astro';
+import { projects } from '../data/projects';
 import { type Lang, useTranslations } from '../i18n';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
-
-const projects = [
-  {
-    titleKey: 'projects.menorcaTitle',
-    teaserKey: 'projects.menorcaTeaser',
-    href: 'https://menorca.cspadel.com/',
-    tags: ['Astro 6', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'Vite 7', 'i18next', 'Framer Motion', 'Vercel'],
-  },
-  {
-    titleKey: 'projects.marketLabTitle',
-    teaserKey: 'projects.marketLabTeaser',
-    href: 'https://marketlab-pied-pi.vercel.app',
-    tags: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Supabase', 'Zod', 'Bun'],
-  },
-  {
-    titleKey: 'projects.kuyuriyAdolescentesTitle',
-    teaserKey: 'projects.kuyuriyAdolescentesTeaser',
-    href: 'https://adolescentes.kuyuriy.com',
-    tags: ['Astro 4.0', 'Vercel', 'Node.js', 'TypeScript', 'Jotform', 'Google Analytics', 'Brevo', 'API Payphone', 'API Dora'],
-  },
-  {
-    titleKey: 'projects.kuyuriyCentroTitle',
-    teaserKey: 'projects.kuyuriyCentroTeaser',
-    href: 'https://kuyuriy.com',
-    tags: ['WordPress', 'Divi', 'Jotform', 'Analytics'],
-  },
-  {
-    titleKey: 'projects.cspadelTitle',
-    teaserKey: 'projects.cspadelTeaser',
-    href: 'https://miami.cspadel.com',
-    tags: ['WordPress', 'Elementor', 'Astro 4.0', 'Jotform', 'Vercel'],
-  },
-  {
-    titleKey: 'projects.natipsicopeTitle',
-    teaserKey: 'projects.natipsicopeTeaser',
-    href: 'https://funciones-ejecutivas.natipsicope.com',
-    tags: ['ReactJS', 'Jotform'],
-  },
-  {
-    titleKey: 'projects.andesVeloTitle',
-    teaserKey: 'projects.andesVeloTeaser',
-    href: 'https://andes-velo-cycling.vercel.app',
-    tags: ['ReactJS', 'TypeScript', 'Node.js'],
-  },
-  {
-    titleKey: 'projects.campusAutoSpaTitle',
-    teaserKey: 'projects.campusAutoSpaTeaser',
-    href: 'https://campus-auto-spa.vercel.app',
-    tags: ['Astro 4.0', 'ReactJS', 'Supabase', 'Node.js'],
-  },
-];
 
 const experience = [
   { roleKey: 'experience.citusRole', orgKey: 'experience.citusOrg', current: true },

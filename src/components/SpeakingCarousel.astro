@@ -1,52 +1,9 @@
 ---
+import { talks } from '../data/talks';
 import { type Lang, useTranslations } from '../i18n';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
-
-const talks = [
-  {
-    id: 'ceutec',
-    image: '/speaking/ceutec-ecommerce.jpg',
-    fit: 'contain',
-    eventKey: 'speaking.ceutecEvent',
-    titleKey: 'speaking.ceutecTitle',
-    bodyKey: 'speaking.ceutecBody',
-    metaKey: 'speaking.ceutecMeta',
-  },
-  {
-    id: 'workshop',
-    image: '/speaking/cursor-workshop-human-bug.jpg',
-    eventKey: 'speaking.workshopEvent',
-    titleKey: 'speaking.workshopTitle',
-    bodyKey: 'speaking.workshopBody',
-    metaKey: 'speaking.workshopMeta',
-  },
-  {
-    id: 'santo',
-    image: '/speaking/cursor-santo-domingo.jpg',
-    eventKey: 'speaking.santoEvent',
-    titleKey: 'speaking.santoTitle',
-    bodyKey: 'speaking.santoBody',
-    metaKey: 'speaking.santoMeta',
-  },
-  {
-    id: 'medusa',
-    image: '/speaking/medusa-ecommerce.jpg',
-    eventKey: 'speaking.medusaEvent',
-    titleKey: 'speaking.medusaTitle',
-    bodyKey: 'speaking.medusaBody',
-    metaKey: 'speaking.medusaMeta',
-  },
-  {
-    id: 'deviathon',
-    image: '/speaking/deviathon-upec.jpg',
-    eventKey: 'speaking.deviathonEvent',
-    titleKey: 'speaking.deviathonTitle',
-    bodyKey: 'speaking.deviathonBody',
-    metaKey: 'speaking.deviathonMeta',
-  },
-];
 ---
 
 <section id="speaking" class="mt-16 scroll-mt-24" aria-labelledby="speaking-title">
