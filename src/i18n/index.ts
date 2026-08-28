@@ -1,38 +1,60 @@
 import en from './en.json';
 import es from './es.json';
 
+export type Lang = 'en' | 'es';
 type Dict = typeof en;
 
-const dictionaries: Record<string, Dict> = { en, es };
+export const defaultLang: Lang = 'es';
+export const locales: Lang[] = ['es', 'en'];
 
-export function getLang(): 'en' | 'es' {
-  if (typeof document !== 'undefined') {
-    const l = document.documentElement.lang;
-    return l === 'en' ? 'en' : 'es';
-  }
-  return 'es';
+const dictionaries: Record<Lang, Dict> = { en, es };
+
+export const localeMeta = {
+  es: {
+    html: 'es',
+    og: 'es_EC',
+    ogAlternate: 'en_US',
+    bcp47: 'es-EC',
+    path: '/',
+  },
+  en: {
+    html: 'en',
+    og: 'en_US',
+    ogAlternate: 'es_EC',
+    bcp47: 'en-US',
+    path: '/en/',
+  },
+} as const;
+
+export function otherLang(lang: Lang): Lang {
+  return lang === 'en' ? 'es' : 'en';
 }
 
-export function getT(lang: 'en' | 'es' = getLang()) {
+/** In-site href: `/` or `/en`, plus optional hash (`/#about`, `/en#about`). */
+export function localePath(lang: Lang, hash = ''): string {
+  const h = hash ? (hash.startsWith('#') ? hash : `#${hash}`) : '';
+  if (lang === 'en') return `/en${h}`;
+  return h ? `/${h}` : '/';
+}
+
+export function localeCanonicalPath(lang: Lang): string {
+  return localeMeta[lang].path;
+}
+
+export function absoluteUrl(path: string, site = 'https://martinruiz.dev'): string {
+  return new URL(path, site).href;
+}
+
+export function useTranslations(lang: Lang) {
   const dict = dictionaries[lang] ?? dictionaries.es;
   return function t(path: string): string {
     try {
-      return path
+      const value = path
         .split('.')
-        .reduce<unknown>((acc, key) => (acc as Record<string, unknown>)[key], dict) as string;
+        .reduce<unknown>((acc, key) => (acc as Record<string, unknown>)[key], dict);
+      return typeof value === 'string' ? value : path;
     } catch {
       return path;
     }
   };
-}
-
-export function onLangChange(callback: (lang: 'en' | 'es') => void) {
-  if (typeof window === 'undefined') return () => {};
-  const handler = (e: Event) => {
-    const lang = (e as CustomEvent).detail as 'en' | 'es';
-    callback(lang);
-  };
-  window.addEventListener('lang-change', handler as EventListener);
-  return () =>
-    window.removeEventListener('lang-change', handler as EventListener);
 }

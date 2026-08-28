@@ -1,84 +1,44 @@
 ---
-const label = 'Cambiar idioma';
+import { type Lang, localePath, otherLang, useTranslations } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const next = otherLang(lang);
+const href = localePath(next);
+const isEN = lang === 'en';
 ---
 
-<button
+<a
+  href={href}
   data-lang-toggle
+  hreflang={next}
+  lang={next}
+  aria-label={t('aria.changeLanguage')}
   class="inline-flex items-center"
-  aria-label={label}
-  aria-pressed="false"
 >
   <span
     data-switch
+    data-state={isEN ? 'en' : 'es'}
     class="relative inline-flex h-6 w-14 items-center rounded-full border border-neutral-900/15 bg-white/50 backdrop-blur-sm transition-all duration-300 ease-apple dark:border-white/20 dark:bg-white/10 data-[state=en]:bg-brand/80 data-[state=en]:border-brand/50"
   >
     <span
       data-icon="es"
+      data-active={String(!isEN)}
       class="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold leading-none opacity-50 transition-opacity data-[active=true]:opacity-100"
       aria-hidden="true"
       >ES</span
     >
     <span
       data-icon="en"
+      data-active={String(isEN)}
       class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold leading-none opacity-50 transition-opacity data-[active=true]:opacity-100"
       aria-hidden="true"
       >EN</span
     >
     <span
       data-thumb
+      data-state={isEN ? 'en' : 'es'}
       class="relative z-[1] ml-0.5 inline-block h-5 w-6 rounded-full bg-white shadow-md ring-1 ring-black/5 transition-transform duration-300 ease-apple translate-x-0 data-[state=en]:translate-x-7"
     ></span>
   </span>
-</button>
-
-<script>
-  // @ts-nocheck
-  const root = document.documentElement;
-  const btn = document.querySelector('[data-lang-toggle]');
-  const track = btn?.querySelector('[data-switch]');
-  const thumb = btn?.querySelector('[data-thumb]');
-  const es = btn?.querySelector('[data-icon="es"]');
-  const en = btn?.querySelector('[data-icon="en"]');
-
-  /** @param {string} lang */
-  function updateUI(lang) {
-    const isEN = lang === 'en';
-    btn?.setAttribute('aria-pressed', String(isEN));
-    track?.setAttribute('data-state', isEN ? 'en' : 'es');
-    thumb?.setAttribute('data-state', isEN ? 'en' : 'es');
-    es?.setAttribute('data-active', String(!isEN));
-    en?.setAttribute('data-active', String(isEN));
-  }
-
-  /** @param {string} next */
-  function applyLang(next) {
-    root.lang = next;
-    try {
-      localStorage.setItem('lang', next);
-    } catch {}
-    updateUI(next);
-    try {
-      window.dispatchEvent(new CustomEvent('lang-change', { detail: next }));
-    } catch {}
-  }
-
-  let initial = 'es';
-  try {
-    const stored = localStorage.getItem('lang');
-    if (stored === 'en' || stored === 'es') {
-      initial = stored;
-    } else if (
-      navigator.language &&
-      navigator.language.toLowerCase().startsWith('en')
-    ) {
-      initial = 'en';
-    }
-  } catch {}
-  applyLang(initial);
-
-  btn?.addEventListener('click', () => {
-    const current = root.lang === 'en' ? 'en' : 'es';
-    const next = current === 'en' ? 'es' : 'en';
-    applyLang(next);
-  });
-</script>
+</a>

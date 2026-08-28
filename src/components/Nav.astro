@@ -1,12 +1,17 @@
 ---
-const links = [
-  { href: '/', hash: '', key: 'nav.home', label: 'Inicio', icon: 'home' },
-  { href: '/#about', hash: '#about', key: 'nav.about', label: 'Sobre mí', icon: 'about' },
-  { href: '/#speaking', hash: '#speaking', key: 'nav.speaking', label: 'Speaker', icon: 'speaking' },
-  { href: '/#projects', hash: '#projects', key: 'nav.projects', label: 'Proyectos', icon: 'projects' },
-];
 import ThemeToggle from './ThemeToggle.astro';
 import LangToggle from './LangToggle.astro';
+import { type Lang, localePath, useTranslations } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const homeHref = localePath(lang);
+const links = [
+  { href: localePath(lang), hash: '', key: 'nav.home', icon: 'home' },
+  { href: localePath(lang, '#about'), hash: '#about', key: 'nav.about', icon: 'about' },
+  { href: localePath(lang, '#speaking'), hash: '#speaking', key: 'nav.speaking', icon: 'speaking' },
+  { href: localePath(lang, '#projects'), hash: '#projects', key: 'nav.projects', icon: 'projects' },
+];
 ---
 
 <nav
@@ -16,7 +21,7 @@ import LangToggle from './LangToggle.astro';
     class="container relative flex h-14 items-center transition-all duration-500 ease-apple"
     data-nav-inner
   >
-    <a id="nav-logo-link" href="/" class="inline-flex shrink-0 items-center gap-2" aria-label="Inicio">
+    <a id="nav-logo-link" href={homeHref} class="inline-flex shrink-0 items-center gap-2" aria-label={t('nav.home')}>
       <img
         src="/logo.png"
         alt="Martin Ruiz"
@@ -44,14 +49,16 @@ import LangToggle from './LangToggle.astro';
         >
           {
             links.map((l) => {
-              const currentPath = Astro.url.pathname;
-              const active = l.href === '/' ? currentPath === '/' && !Astro.url.hash : false;
+              const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+              const linkPath = new URL(l.href, 'https://martinruiz.dev').pathname.replace(/\/$/, '') || '/';
+              const active = !l.hash && currentPath === linkPath;
               return (
                 <a
                   href={l.href}
                   data-nav-key={l.key}
+                  data-nav-hash={l.hash}
                   aria-current={active ? 'page' : undefined}
-                  aria-label={l.label}
+                  aria-label={t(l.key)}
                   class={[
                     'inline-flex items-center h-8 rounded-full px-2 text-xs transition-all duration-300 ease-apple sm:h-9 sm:px-3 sm:text-sm data-[compact=true]:h-8 data-[compact=true]:text-xs whitespace-nowrap',
                     active
@@ -78,7 +85,7 @@ import LangToggle from './LangToggle.astro';
                       l.icon === 'home' ? 'ml-1.5 hidden sm:inline' : 'ml-0',
                     ]}
                   >
-                    {l.label}
+                    {t(l.key)}
                   </span>
                 </a>
               );
@@ -91,33 +98,18 @@ import LangToggle from './LangToggle.astro';
       class="ml-auto flex shrink-0 items-center gap-2 transition-all duration-500 ease-apple data-[compact=true]:scale-90"
       data-actions
     >
-      <LangToggle />
-      <ThemeToggle />
+      <LangToggle lang={lang} />
+      <ThemeToggle label={t('aria.toggleTheme')} />
     </div>
 
     <script>
       // @ts-nocheck
-      const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
-
-      const updateNavLabels = () => {
-        const fn = t();
-        const logo = document.getElementById('nav-logo-link');
-        if (logo) logo.setAttribute('aria-label', fn('nav.home'));
-        document.querySelectorAll('nav a[data-nav-key]').forEach((a) => {
-          const key = a.getAttribute('data-nav-key');
-          if (!key) return;
-          a.setAttribute('aria-label', fn(key));
-          const span = a.querySelector('span[aria-hidden]');
-          if (span) span.textContent = fn(key);
-        });
-      };
-
       const setActiveFromHash = () => {
         const hash = window.location.hash || '';
         document.querySelectorAll('nav a[data-nav-key]').forEach((a) => {
-          const href = a.getAttribute('href') || '';
-          const isHome = href === '/';
-          const active = isHome ? hash === '' : href.endsWith(hash) && hash !== '';
+          const linkHash = a.getAttribute('data-nav-hash') || '';
+          const isHome = linkHash === '';
+          const active = isHome ? hash === '' : linkHash === hash && hash !== '';
           if (active) {
             a.setAttribute('aria-current', 'page');
             a.classList.add(
@@ -142,9 +134,7 @@ import LangToggle from './LangToggle.astro';
         });
       };
 
-      updateNavLabels();
       setActiveFromHash();
-      window.addEventListener('lang-change', updateNavLabels);
       window.addEventListener('hashchange', setActiveFromHash);
       const nav = document.querySelector('nav');
       const inner = document.querySelector('[data-nav-inner]');
@@ -157,7 +147,7 @@ import LangToggle from './LangToggle.astro';
         if (actions) actions.setAttribute('data-compact', String(compact));
         if (pills) pills.setAttribute('data-compact', String(compact));
         document
-          .querySelectorAll('nav a[aria-label]')
+          .querySelectorAll('nav a[data-nav-key]')
           .forEach((a) => a.setAttribute('data-compact', String(compact)));
       };
       applyCompact();
@@ -179,9 +169,12 @@ import LangToggle from './LangToggle.astro';
           }
           if (!main) return;
           e.preventDefault();
+          if (a.hasAttribute('data-lang-toggle') && location.hash) {
+            url.hash = location.hash;
+          }
           main.classList.add('page-exit');
           setTimeout(() => {
-            window.location.href = a.href;
+            window.location.href = url.pathname + url.search + url.hash;
           }, 380);
         });
       });

@@ -1,5 +1,5 @@
 ---
-const label = 'Toggle theme';
+const { label = 'Toggle theme' } = Astro.props as { label?: string };
 ---
 
 <button

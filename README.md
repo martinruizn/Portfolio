@@ -1,6 +1,6 @@
 # Portafolio — Martin Ruiz
 
-Portafolio estático construido con Astro + Tailwind + MD/MDX + islas React opcionales, SEO sólido (JSON-LD + OG/Twitter), RSS y sitemap listos para deploy.
+Portafolio estático en Astro + Tailwind. One-pager bilingüe (`/` español, `/en` inglés) con SEO en el HTML: canonical, hreflang, Open Graph, Twitter Card y JSON-LD.
 
 ## Requisitos
 
@@ -31,19 +31,20 @@ export default defineConfig({
 
 ## Estructura
 
-- `src/layouts/BaseLayout.astro` — Metadatos, JSON-LD, OG/Twitter.
-- `src/components/Nav.astro`, `ProjectCard.astro`
-- `src/content/config.ts` + `src/content/projects/*`
-- `src/pages/*` — Home, About, Contact, Projects list/detail, RSS (`/rss.xml`).
+- `src/layouts/BaseLayout.astro` — canonical, hreflang, OG/Twitter, JSON-LD.
+- `src/components/HomePage.astro` — contenido del home, traducido en servidor.
+- `src/i18n/` — diccionarios `es` / `en` y helpers de rutas.
+- `src/pages/index.astro` — español (`/`).
+- `src/pages/en/index.astro` — inglés (`/en`).
 
 ## Configuración Tailwind
 
 - `tailwind.config.cjs` con `theme.extend.colors.brand = '#a15929'`.
-- `src/styles/global.css` incluye Inter Variable, tema oscuro, utilidades `.container`, `.card`, `.btn`.
+- `src/styles/global.css` incluye tema oscuro, utilidades `.container`, `.card`, `.btn`.
 
 ## Deploy (Vercel)
 
 - Build command: `astro build`
 - Output dir: `dist`
-- Apuntar DNS del dominio `https://martin.dev`
-- Verificar: `/sitemap-index.xml`, `/robots.txt`, `/rss.xml`
+- Dominio: `https://martinruiz.dev`
+- Verificar: `/sitemap-index.xml`, `/robots.txt`, `/` y `/en`

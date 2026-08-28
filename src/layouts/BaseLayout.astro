@@ -1,104 +1,113 @@
 ---
 import Nav from '../components/Nav.astro';
 import '../styles/global.css';
-import en from '../i18n/en.json';
-import es from '../i18n/es.json';
+import {
+  type Lang,
+  absoluteUrl,
+  localeCanonicalPath,
+  localeMeta,
+  useTranslations,
+} from '../i18n';
 
-const {
-  title = 'Martin Ruiz — Forward Deployed Engineer',
-  description =
-    'Forward Deployed Engineer en Citus.dev. Producto, flujos con IA y comunidad. Organizador de GDG Quito, basado en Quito, Ecuador.',
-  og = {
-    title,
-    description,
-    type: 'website',
-    url: 'https://martinruiz.dev',
-    image: `${Astro.site?.origin ?? 'https://martinruiz.dev'}/og-default.jpg`,
-  },
-} = Astro.props as {
-  title?: string;
-  description?: string;
-  og?: {
-    title: string;
-    description: string;
-    type: string;
-    url: string;
-    image: string;
-  };
-};
+const { lang = 'es' } = Astro.props as { lang?: Lang };
 
+const t = useTranslations(lang);
+const site = Astro.site ?? new URL('https://martinruiz.dev');
+const canonical = absoluteUrl(localeCanonicalPath(lang), site.href);
+const alternateEs = absoluteUrl(localeCanonicalPath('es'), site.href);
+const alternateEn = absoluteUrl(localeCanonicalPath('en'), site.href);
+const title = t('meta.homeTitle');
+const description = t('meta.homeDescription');
+const ogImage = absoluteUrl('/og-default.jpg', site.href);
+const ogLocale = localeMeta[lang].og;
+const ogLocaleAlternate = localeMeta[lang].ogAlternate;
+const inLanguage = localeMeta[lang].bcp47;
+const personId = absoluteUrl('#person', site.href);
+const websiteId = absoluteUrl('#website', site.href);
+const pageId = `${canonical}#webpage`;
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Martin Ruiz',
-  jobTitle: 'Forward Deployed Engineer',
-  description:
-    'Forward Deployed Engineer en Citus.dev. Producto, flujos con IA y comunidad. Organizador de GDG Quito.',
-  url: 'https://martinruiz.dev',
-  image: `${Astro.site?.origin ?? 'https://martinruiz.dev'}/about/workspace.jpg`,
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Citus.dev',
-  },
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Quito',
-    addressCountry: 'EC',
-  },
-  sameAs: [
-    'https://www.linkedin.com/in/martin-ruizn/',
-    'https://github.com/martinruizn',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': personId,
+      name: 'Martin Ruiz',
+      jobTitle: 'Forward Deployed Engineer',
+      description,
+      url: alternateEs,
+      image: absoluteUrl('/about/workspace.jpg', site.href),
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Citus.dev',
+      },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Quito',
+        addressCountry: 'EC',
+      },
+      sameAs: [
+        'https://www.linkedin.com/in/martin-ruizn/',
+        'https://github.com/martinruizn',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: alternateEs,
+      name: 'Martin Ruiz',
+      inLanguage: ['es-EC', 'en-US'],
+      publisher: { '@id': personId },
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': pageId,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage,
+      isPartOf: { '@id': websiteId },
+      about: { '@id': personId },
+      mainEntity: { '@id': personId },
+    },
   ],
 };
 ---
 
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Martin Ruiz" />
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <meta property="og:title" content={og.title} />
-    <meta property="og:description" content={og.description} />
-    <meta property="og:type" content={og.type} />
-    <meta property="og:url" content={og.url} />
-    <meta property="og:image" content={og.image} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={alternateEs} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={alternateEs} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Martin Ruiz" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlternate} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:alt" content={og.title} />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={og.title} />
-    <meta name="twitter:description" content={og.description} />
-    <meta name="twitter:image" content={og.image} />
-    <meta name="twitter:image:alt" content={og.title} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-
-    <script define:vars={{ en, es }}>
-      window.__i18n__ = { en, es };
-      window.__t__ = function (key) {
-        try {
-          const lang = (document.documentElement.lang === 'en' ? 'en' : 'es');
-          const dict = window.__i18n__[lang] || window.__i18n__.es;
-          const value = key.split('.').reduce(function (o, k) { return o && o[k]; }, dict);
-          return typeof value === 'string' ? value : key;
-        } catch (e) {
-          return key;
-        }
-      };
-    </script>
-
-    {
-      /* Ejemplo de override por página:
-    <BaseLayout og={{ ...og, title: 'Página X', url: 'https://martinruiz.dev/x' }}>
-      ...
-    </BaseLayout>
-    */
-    }
   </head>
   <body>
     <div class="bg-depth" aria-hidden="true">
@@ -106,27 +115,9 @@ const jsonLd = {
       <div class="bg-depth-orb bg-depth-orb--2"></div>
       <div class="bg-depth-orb bg-depth-orb--3"></div>
     </div>
-    <Nav />
+    <Nav lang={lang} />
     <main class="container py-10">
       <slot />
     </main>
-    <script>
-      (function () {
-        function updateAriaLabels() {
-          if (typeof window.__t__ !== 'function') return;
-          var fn = window.__t__;
-          var langBtn = document.querySelector('[data-lang-toggle]');
-          if (langBtn) langBtn.setAttribute('aria-label', fn('aria.changeLanguage'));
-          var themeBtn = document.querySelector('[data-theme-toggle]');
-          if (themeBtn) themeBtn.setAttribute('aria-label', fn('aria.toggleTheme'));
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', updateAriaLabels);
-        } else {
-          updateAriaLabels();
-        }
-        window.addEventListener('lang-change', updateAriaLabels);
-      })();
-    </script>
   </body>
 </html>

@@ -1,0 +1,209 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import SpeakingCarousel from './SpeakingCarousel.astro';
+import { type Lang, useTranslations } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
+const projects = [
+  {
+    titleKey: 'projects.menorcaTitle',
+    teaserKey: 'projects.menorcaTeaser',
+    href: 'https://menorca.cspadel.com/',
+    tags: ['Astro 6', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'Vite 7', 'i18next', 'Framer Motion', 'Vercel'],
+  },
+  {
+    titleKey: 'projects.marketLabTitle',
+    teaserKey: 'projects.marketLabTeaser',
+    href: 'https://marketlab-pied-pi.vercel.app',
+    tags: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Supabase', 'Zod', 'Bun'],
+  },
+  {
+    titleKey: 'projects.kuyuriyAdolescentesTitle',
+    teaserKey: 'projects.kuyuriyAdolescentesTeaser',
+    href: 'https://adolescentes.kuyuriy.com',
+    tags: ['Astro 4.0', 'Vercel', 'Node.js', 'TypeScript', 'Jotform', 'Google Analytics', 'Brevo', 'API Payphone', 'API Dora'],
+  },
+  {
+    titleKey: 'projects.kuyuriyCentroTitle',
+    teaserKey: 'projects.kuyuriyCentroTeaser',
+    href: 'https://kuyuriy.com',
+    tags: ['WordPress', 'Divi', 'Jotform', 'Analytics'],
+  },
+  {
+    titleKey: 'projects.cspadelTitle',
+    teaserKey: 'projects.cspadelTeaser',
+    href: 'https://miami.cspadel.com',
+    tags: ['WordPress', 'Elementor', 'Astro 4.0', 'Jotform', 'Vercel'],
+  },
+  {
+    titleKey: 'projects.natipsicopeTitle',
+    teaserKey: 'projects.natipsicopeTeaser',
+    href: 'https://funciones-ejecutivas.natipsicope.com',
+    tags: ['ReactJS', 'Jotform'],
+  },
+  {
+    titleKey: 'projects.andesVeloTitle',
+    teaserKey: 'projects.andesVeloTeaser',
+    href: 'https://andes-velo-cycling.vercel.app',
+    tags: ['ReactJS', 'TypeScript', 'Node.js'],
+  },
+  {
+    titleKey: 'projects.campusAutoSpaTitle',
+    teaserKey: 'projects.campusAutoSpaTeaser',
+    href: 'https://campus-auto-spa.vercel.app',
+    tags: ['Astro 4.0', 'ReactJS', 'Supabase', 'Node.js'],
+  },
+];
+
+const experience = [
+  { roleKey: 'experience.citusRole', orgKey: 'experience.citusOrg', current: true },
+  { roleKey: 'experience.gdgRole', orgKey: 'experience.gdgOrg', current: true },
+  { roleKey: 'experience.mentaRole', orgKey: 'experience.mentaOrg', current: false },
+  { roleKey: 'experience.freelanceRole', orgKey: 'experience.freelanceOrg', current: false },
+  { roleKey: 'experience.palfarmaRole', orgKey: 'experience.palfarmaOrg', current: false },
+];
+---
+
+<section class="pt-10 pb-16">
+  <div class="text-center">
+    <div
+      class="mx-auto mb-6 h-28 w-28 overflow-hidden rounded-full shadow-glass ring-2 ring-neutral-900/10 ring-offset-2 ring-offset-[#dce8e3] dark:ring-white/25 dark:ring-offset-[#121917]"
+    >
+      <img
+        src="/avatar.jpg"
+        alt="Martin Ruiz"
+        width="112"
+        height="112"
+        class="h-full w-full object-cover"
+        onerror="this.onerror=null;this.src='/about/workspace.jpg'"
+        loading="eager"
+      />
+    </div>
+    <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">
+      Martin Ruiz
+    </h1>
+    <p class="mt-4 text-lg text-neutral-700 dark:text-neutral-200">
+      {t('hero.role')}
+    </p>
+    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 sm:text-base">
+      {t('hero.tagline')}
+    </p>
+    <p class="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
+      {t('hero.location')}
+    </p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <a href="https://github.com/martinruizn?tab=repositories" class="btn">
+        {t('cta.viewGithub')}
+      </a>
+      <a href="https://www.linkedin.com/in/martin-ruizn/" class="btn-outline">
+        {t('cta.connectLinkedIn')}
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="mt-2 scroll-mt-24">
+  <div class="glass glass-specular rounded-glassLg p-6 sm:p-10">
+    <div class="grid items-start gap-8 md:grid-cols-5">
+      <div class="md:col-span-2">
+        <div class="overflow-hidden rounded-glass shadow-glass ring-1 ring-neutral-900/10 dark:ring-white/15">
+          <img
+            src="/about/workspace.jpg"
+            alt={t('about.photoAlt')}
+            width="640"
+            height="800"
+            class="aspect-[4/5] w-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="md:col-span-3">
+        <div class="prose prose-glass">
+          <h2 id="about-section-title">{t('about.sectionTitle')}</h2>
+          <p>{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+          <p>{t('about.p3')}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <h3
+        class="text-sm font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400"
+      >
+        {t('about.experienceTitle')}
+      </h3>
+      <ol
+        class="relative mt-6 flex flex-col border-l border-brand/40 pl-6 md:flex-row md:border-l-0 md:border-t md:pl-0"
+      >
+        {
+          experience.map((item) => (
+            <li class="relative flex-1 pb-6 last:pb-0 md:min-w-0 md:px-2 md:pb-0 md:pt-7 md:text-center">
+              <span
+                class:list={[
+                  'absolute h-3 w-3 rounded-full top-1.5 -left-[1.45rem] md:left-1/2 md:top-0 md:-translate-x-1/2 md:-translate-y-1/2',
+                  item.current
+                    ? 'bg-brand ring-4 ring-brand/20'
+                    : 'border-2 border-brand bg-white dark:bg-[#121917]',
+                ]}
+                aria-hidden="true"
+              />
+              <p class="text-sm font-semibold text-neutral-900 dark:text-neutral-50">
+                {t(item.roleKey)}
+              </p>
+              <p class="mt-0.5 text-sm text-neutral-700 dark:text-neutral-200">
+                {t(item.orgKey)}
+              </p>
+              {item.current && (
+                <span class="mt-2 inline-block rounded-full bg-brand/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-brand dark:bg-white/15 dark:text-white">
+                  {t('about.current')}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<SpeakingCarousel lang={lang} />
+
+<section id="projects" class="mt-16 scroll-mt-24">
+  <h2 class="mb-6 text-xl font-semibold tracking-tight">{t('home.recentProjects')}</h2>
+  <div class="grid gap-4 sm:grid-cols-2">
+    {
+      projects.map((p) => (
+        <ProjectCard
+          title={t(p.titleKey)}
+          teaser={t(p.teaserKey)}
+          href={p.href}
+          tags={p.tags}
+        />
+      ))
+    }
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="glass glass-specular rounded-glassLg p-8 sm:p-10">
+    <div
+      class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center"
+    >
+      <div>
+        <h2 class="text-xl font-semibold tracking-tight">{t('home.talkTitle')}</h2>
+        <p class="mt-1 text-neutral-700 dark:text-neutral-200">
+          {t('home.talkBody')}
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a class="btn" href="mailto:martinruiz91n@gmail.com">{t('cta.writeMe')}</a>
+        <a class="btn-outline" href="https://www.linkedin.com/in/martin-ruizn/">
+          {t('cta.connectLinkedIn')}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

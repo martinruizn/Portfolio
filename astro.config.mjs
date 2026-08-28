@@ -9,13 +9,28 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://martinruiz.dev',
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [
     react(),
     tailwind({
       applyBaseStyles: true,
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'es',
+        locales: {
+          es: 'es-EC',
+          en: 'en-US',
+        },
+      },
+    }),
   ],
   image: {
     // Prefer sharp by default for best quality/performance

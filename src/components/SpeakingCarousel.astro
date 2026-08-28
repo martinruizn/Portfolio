@@ -1,4 +1,9 @@
 ---
+import { type Lang, useTranslations } from '../i18n';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+
 const talks = [
   {
     id: 'ceutec',
@@ -8,10 +13,6 @@ const talks = [
     titleKey: 'speaking.ceutecTitle',
     bodyKey: 'speaking.ceutecBody',
     metaKey: 'speaking.ceutecMeta',
-    event: 'CEUTEC · Conferencia internacional',
-    title: 'Armemos un e-commerce que cruza fronteras',
-    body: 'Charla para el Técnico Universitario en Desarrollo de Aplicaciones Web. Cómo construir comercio digital que escala más allá de un mercado local.',
-    meta: '25 ago 2026 · Zoom',
   },
   {
     id: 'workshop',
@@ -20,10 +21,6 @@ const talks = [
     titleKey: 'speaking.workshopTitle',
     bodyKey: 'speaking.workshopBody',
     metaKey: 'speaking.workshopMeta',
-    event: 'Cursor Workshop · Tech Ecuador Community',
-    title: 'The human bug',
-    body: 'Nos volvemos bilingües con las computadoras, pero torpes con las personas. Una charla sobre criterio, comunidad y construir con IA sin perder el lado humano.',
-    meta: 'Ecuador',
   },
   {
     id: 'santo',
@@ -32,10 +29,6 @@ const talks = [
     titleKey: 'speaking.santoTitle',
     bodyKey: 'speaking.santoBody',
     metaKey: 'speaking.santoMeta',
-    event: 'Cursor Meetup · Santo Domingo',
-    title: 'Cursor, Medusa y Next.js en el escenario',
-    body: 'Integración de Cursor con Medusa y Next.js para armar una tienda educativa en vivo, junto a la comunidad DevLokos.',
-    meta: '5 jul 2026 · Santo Domingo, Ecuador',
   },
   {
     id: 'medusa',
@@ -44,10 +37,6 @@ const talks = [
     titleKey: 'speaking.medusaTitle',
     bodyKey: 'speaking.medusaBody',
     metaKey: 'speaking.medusaMeta',
-    event: 'Medusa JS · Auditorio',
-    title: 'E-commerce open source y headless',
-    body: 'Demo de comercio headless con Medusa: de la arquitectura a un checkout real, frente a estudiantes y developers.',
-    meta: 'Ecuador',
   },
   {
     id: 'deviathon',
@@ -56,24 +45,17 @@ const talks = [
     titleKey: 'speaking.deviathonTitle',
     bodyKey: 'speaking.deviathonBody',
     metaKey: 'speaking.deviathonMeta',
-    event: 'DevIAthon 2026 · UPEC',
-    title: 'IA en vivo, comunidad universitaria',
-    body: 'Escenario en el DevIAthon 2026 de la UPEC: inteligencia artificial, producto y el ecosistema tech que se está formando en Ecuador.',
-    meta: '2026 · UPEC',
   },
 ];
 ---
 
 <section id="speaking" class="mt-16 scroll-mt-24" aria-labelledby="speaking-title">
   <div class="mb-6 max-w-2xl">
-    <h2 id="speaking-title" data-i18n="speaking.sectionTitle" class="text-xl font-semibold tracking-tight">
-      En el escenario
+    <h2 id="speaking-title" class="text-xl font-semibold tracking-tight">
+      {t('speaking.sectionTitle')}
     </h2>
-    <p
-      data-i18n="speaking.sectionLead"
-      class="mt-2 text-neutral-700 dark:text-neutral-200"
-    >
-      Charlas, workshops y comunidad tech: producto, IA y e-commerce, en Ecuador y más allá.
+    <p class="mt-2 text-neutral-700 dark:text-neutral-200">
+      {t('speaking.sectionLead')}
     </p>
   </div>
 
@@ -98,7 +80,9 @@ const talks = [
           >
             <img
               src={talk.image}
-              alt=""
+              alt={t(talk.titleKey)}
+              width="1600"
+              height="1000"
               class:list={[
                 'h-full w-full object-center',
                 talk.fit === 'contain' ? 'object-contain bg-[#3a0a0a]' : 'object-cover',
@@ -110,29 +94,17 @@ const talks = [
               aria-hidden="true"
             />
             <div class="absolute inset-x-0 bottom-0 p-5 sm:p-8">
-              <p
-                data-i18n={talk.eventKey}
-                class="text-xs font-semibold uppercase tracking-wider text-white/80"
-              >
-                {talk.event}
+              <p class="text-xs font-semibold uppercase tracking-wider text-white/80">
+                {t(talk.eventKey)}
               </p>
-              <h3
-                data-i18n={talk.titleKey}
-                class="mt-1 text-lg font-semibold tracking-tight text-white sm:text-2xl"
-              >
-                {talk.title}
+              <h3 class="mt-1 text-lg font-semibold tracking-tight text-white sm:text-2xl">
+                {t(talk.titleKey)}
               </h3>
-              <p
-                data-i18n={talk.bodyKey}
-                class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base"
-              >
-                {talk.body}
+              <p class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base">
+                {t(talk.bodyKey)}
               </p>
-              <p
-                data-i18n={talk.metaKey}
-                class="mt-3 text-xs text-white/70"
-              >
-                {talk.meta}
+              <p class="mt-3 text-xs text-white/70">
+                {t(talk.metaKey)}
               </p>
             </div>
           </article>
@@ -145,17 +117,16 @@ const talks = [
         type="button"
         data-carousel-prev
         class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-900/15 bg-white/80 text-neutral-800 transition-colors hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20"
-        aria-label="Charla anterior"
-        data-i18n-aria="speaking.prev"
+        aria-label={t('speaking.prev')}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M15 18l-6-6 6-6" />
         </svg>
       </button>
 
-      <div class="flex items-center gap-2" data-carousel-dots role="tablist" aria-label="Charlas">
+      <div class="flex items-center gap-2" data-carousel-dots role="tablist" aria-label={t('speaking.sectionTitle')}>
         {
-          talks.map((talk, index) => (
+          talks.map((_, index) => (
             <button
               type="button"
               data-dot
@@ -164,7 +135,7 @@ const talks = [
                 'h-2.5 rounded-full transition-all duration-300 ease-apple',
                 index === 0 ? 'w-6 bg-brand' : 'w-2.5 bg-neutral-400/70 dark:bg-white/35',
               ]}
-              aria-label={`Ir a la charla ${index + 1}`}
+              aria-label={`${t('speaking.slide')} ${index + 1}`}
               aria-current={index === 0 ? 'true' : undefined}
             />
           ))
@@ -175,8 +146,7 @@ const talks = [
         type="button"
         data-carousel-next
         class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-neutral-900/15 bg-white/80 text-neutral-800 transition-colors hover:bg-white dark:border-white/20 dark:bg-white/10 dark:text-neutral-50 dark:hover:bg-white/20"
-        aria-label="Charla siguiente"
-        data-i18n-aria="speaking.next"
+        aria-label={t('speaking.next')}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M9 18l6-6-6-6" />
@@ -198,17 +168,6 @@ const talks = [
     let index = 0;
     let timer = null;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const t = () => (typeof window !== 'undefined' && window.__t__ ? window.__t__ : (k) => k);
-
-    function applyAria() {
-      const fn = t();
-      if (prev) prev.setAttribute('aria-label', fn('speaking.prev'));
-      if (next) next.setAttribute('aria-label', fn('speaking.next'));
-      dots.forEach((dot, i) => {
-        dot.setAttribute('aria-label', `${fn('speaking.slide')} ${i + 1}`);
-      });
-    }
 
     function render() {
       slides.forEach((slide, i) => {
@@ -302,8 +261,6 @@ const talks = [
     root.addEventListener('focusin', stop);
     root.addEventListener('focusout', start);
 
-    applyAria();
-    window.addEventListener('lang-change', applyAria);
     start();
   }
 </script>
